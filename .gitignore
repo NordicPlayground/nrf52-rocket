@@ -1,0 +1,9 @@
+## KEIL AND JLINK ##
+_build
+RTE
+JLinkSettings.ini
+JLinkLog.txt
+*.uvguix*
+
+## Documents ## 
+technical_info
