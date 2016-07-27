@@ -371,9 +371,9 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>BLE_STACK_SUPPORT_REQD BOARD_PCA10040 NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 NRF52 SOFTDEVICE_PRESENT SWI_DISABLE0</Define>
+              <Define>BLE_STACK_SUPPORT_REQD  NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 DEBUG NRF52 CONFIG_NFCT_PINS_AS_GPIOS SOFTDEVICE_PRESENT SWI_DISABLE0 EMPL_TARGET_NRF52</Define>
               <Undefine></Undefine>
-              <IncludePath>..\config;..\sdk_components\ble\ble_services\ble_lbs;..\sdk_components\ble\common;..\sdk_components\drivers_nrf\common;..\sdk_components\drivers_nrf\config;..\sdk_components\drivers_nrf\delay;..\sdk_components\drivers_nrf\gpiote;..\sdk_components\drivers_nrf\hal;..\sdk_components\drivers_nrf\uart;..\sdk_components\libraries\button;..\sdk_components\libraries\fifo;..\sdk_components\libraries\timer;..\sdk_components\libraries\uart;..\sdk_components\libraries\util;..\sdk_components\softdevice\common\softdevice_handler;..\sdk_components\softdevice\s132\headers;..\sdk_components\softdevice\s132\headers\nrf52;..\sdk_components\toolchain;..\sdk_external\segger_rtt;..\include</IncludePath>
+              <IncludePath>..\config;..\sdk_components\ble\ble_services\ble_lbs;..\sdk_components\ble\common;..\sdk_components\drivers_nrf\common;..\sdk_components\drivers_nrf\config;..\sdk_components\drivers_nrf\delay;..\sdk_components\drivers_nrf\gpiote;..\sdk_components\drivers_nrf\hal;..\sdk_components\drivers_nrf\uart;..\sdk_components\libraries\button;..\sdk_components\libraries\fifo;..\sdk_components\libraries\timer;..\sdk_components\libraries\uart;..\sdk_components\libraries\util;..\sdk_components\softdevice\common\softdevice_handler;..\sdk_components\softdevice\s132\headers;..\sdk_components\softdevice\s132\headers\nrf52;..\sdk_components\toolchain;..\sdk_external\segger_rtt;..\include;..\sdk_components\drivers_nrf\timer;..\sdk_components\drivers_nrf\ppi;..\sdk_components\drivers_nrf\saadc;..\include\drivers;..\sdk_components\drivers_nrf\twi_master;..\libs\eMD6\core\driver\eMPL;..\sdk_components\libraries\scheduler</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -847,6 +847,31 @@
               <FileType>1</FileType>
               <FilePath>..\sdk_components\libraries\util\nrf_log.c</FilePath>
             </File>
+            <File>
+              <FileName>nrf_drv_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\timer\nrf_drv_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_ppi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\ppi\nrf_drv_ppi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\saadc\nrf_drv_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\hal\nrf_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\twi_master\nrf_drv_twi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1216,6 +1241,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>app_scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\scheduler\app_scheduler.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1468,7 +1498,35 @@
               <FileType>1</FileType>
               <FilePath>..\source\gpio_test.c</FilePath>
             </File>
+            <File>
+              <FileName>ignition_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\ignition_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_mpu9250.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_htu21d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_htu21d.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_humid_temp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
+            </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -2318,6 +2376,31 @@
               <FileType>1</FileType>
               <FilePath>..\sdk_components\libraries\util\nrf_log.c</FilePath>
             </File>
+            <File>
+              <FileName>nrf_drv_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\timer\nrf_drv_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_ppi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\ppi\nrf_drv_ppi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\saadc\nrf_drv_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\hal\nrf_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\twi_master\nrf_drv_twi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2687,6 +2770,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>app_scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\scheduler\app_scheduler.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2939,7 +3027,35 @@
               <FileType>1</FileType>
               <FilePath>..\source\gpio_test.c</FilePath>
             </File>
+            <File>
+              <FileName>ignition_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\ignition_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_mpu9250.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_htu21d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_htu21d.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_humid_temp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
+            </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

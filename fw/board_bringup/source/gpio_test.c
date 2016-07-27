@@ -5,21 +5,21 @@
 
 void gpio_test_all_toggle(void)
 {
-    nrf_gpio_range_cfg_output(0, 31);
-    for (uint8_t pin = 0; pin < 32; pin++)
+    nrf_gpio_range_cfg_output(2, 31);
+    for (uint8_t pin = 2; pin < 31; pin++)
     {
         nrf_gpio_pin_set(pin);
-        nrf_delay_ms(100);
+        nrf_delay_ms(300);
         nrf_gpio_pin_clear(pin);
-        nrf_delay_ms(100);
+        nrf_delay_ms(10);
     }
 
 }
 
 void gpio_test_all_read(void)
 {
-    nrf_gpio_range_cfg_input(0, 31, NRF_GPIO_PIN_PULLUP);
-    for (uint8_t pin = 0; pin < 32; pin++)
+    nrf_gpio_range_cfg_input(2, 31, NRF_GPIO_PIN_PULLUP);
+    for (uint8_t pin = 2; pin < 32; pin++)
     {
         if(nrf_gpio_pin_read(pin) == 0)
         {

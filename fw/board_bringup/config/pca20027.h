@@ -2,8 +2,8 @@
 #define PCA20027_H
 
 /*I2C Pins (ext. PU 4.7KOhm)*/
-#define TWI_SCL         (7)
-#define TWI_SDA         (8)
+#define TWI_SCL_PIN_NUMBER         (7)
+#define TWI_SDA_PIN_NUMBER         (8)
 
 /*Servo PWM Pins*/
 #define SERVO_1         (20)
@@ -20,8 +20,9 @@
 #define LED_G           (30)
 #define LED_B           (29)
 
-/*5V Enable*/
+/*5V Boost Regulator*/
 #define BOOST_5V_ENABLE (11)
+#define POWER_GOOD      (4) //Inverted logic
 
 /*Ignition Supercap*/
 #define IGNITION_CH1    (13) //Turn on power mosfets

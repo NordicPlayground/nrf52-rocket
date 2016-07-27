@@ -56,7 +56,7 @@
 #define TIMER0_INSTANCE_INDEX      0
 #endif
 
-#define TIMER1_ENABLED 0
+#define TIMER1_ENABLED 1
 
 #if (TIMER1_ENABLED == 1)
 #define TIMER1_CONFIG_FREQUENCY    NRF_TIMER_FREQ_16MHz
@@ -66,7 +66,7 @@
 
 #define TIMER1_INSTANCE_INDEX      (TIMER0_ENABLED)
 #endif
- 
+
 #define TIMER2_ENABLED 0
 
 #if (TIMER2_ENABLED == 1)
@@ -301,7 +301,7 @@
 #endif //NRF52
 #endif
 
-#define TWI0_ENABLED 0
+#define TWI0_ENABLED 1
 
 #if (TWI0_ENABLED == 1)
 #define TWI0_USE_EASY_DMA 0
@@ -377,7 +377,7 @@
 #endif
 
 /* ADC */
-#define ADC_ENABLED 0
+#define ADC_ENABLED 1
 
 #if (ADC_ENABLED == 1)
 #define ADC_CONFIG_IRQ_PRIORITY APP_IRQ_PRIORITY_LOW
@@ -385,7 +385,7 @@
 
 
 /* SAADC */
-#define SAADC_ENABLED 0
+#define SAADC_ENABLED 1
 
 #if (SAADC_ENABLED == 1)
 #define SAADC_CONFIG_RESOLUTION      NRF_SAADC_RESOLUTION_10BIT
