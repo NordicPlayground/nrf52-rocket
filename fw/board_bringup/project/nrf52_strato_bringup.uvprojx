@@ -373,7 +373,7 @@
               <MiscControls></MiscControls>
               <Define>BLE_STACK_SUPPORT_REQD  NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 DEBUG NRF52 CONFIG_NFCT_PINS_AS_GPIOS SOFTDEVICE_PRESENT SWI_DISABLE0 EMPL_TARGET_NRF52</Define>
               <Undefine></Undefine>
-              <IncludePath>..\config;..\sdk_components\ble\ble_services\ble_lbs;..\sdk_components\ble\common;..\sdk_components\drivers_nrf\common;..\sdk_components\drivers_nrf\config;..\sdk_components\drivers_nrf\delay;..\sdk_components\drivers_nrf\gpiote;..\sdk_components\drivers_nrf\hal;..\sdk_components\drivers_nrf\uart;..\sdk_components\libraries\button;..\sdk_components\libraries\fifo;..\sdk_components\libraries\timer;..\sdk_components\libraries\uart;..\sdk_components\libraries\util;..\sdk_components\softdevice\common\softdevice_handler;..\sdk_components\softdevice\s132\headers;..\sdk_components\softdevice\s132\headers\nrf52;..\sdk_components\toolchain;..\sdk_external\segger_rtt;..\include;..\sdk_components\drivers_nrf\timer;..\sdk_components\drivers_nrf\ppi;..\sdk_components\drivers_nrf\saadc;..\include\drivers;..\sdk_components\drivers_nrf\twi_master;..\libs\eMD6\core\driver\eMPL;..\sdk_components\libraries\scheduler</IncludePath>
+              <IncludePath>..\config;..\sdk_components\ble\ble_services\ble_lbs;..\sdk_components\ble\common;..\sdk_components\drivers_nrf\common;..\sdk_components\drivers_nrf\config;..\sdk_components\drivers_nrf\delay;..\sdk_components\drivers_nrf\gpiote;..\sdk_components\drivers_nrf\hal;..\sdk_components\drivers_nrf\uart;..\sdk_components\libraries\button;..\sdk_components\libraries\fifo;..\sdk_components\libraries\timer;..\sdk_components\libraries\uart;..\sdk_components\libraries\util;..\sdk_components\softdevice\common\softdevice_handler;..\sdk_components\softdevice\s132\headers;..\sdk_components\softdevice\s132\headers\nrf52;..\sdk_components\toolchain;..\sdk_external\segger_rtt;..\include;..\sdk_components\drivers_nrf\timer;..\sdk_components\drivers_nrf\ppi;..\sdk_components\drivers_nrf\saadc;..\include\drivers;..\sdk_components\drivers_nrf\twi_master;..\libs\eMD6\core\driver\eMPL;..\sdk_components\libraries\scheduler;..\include\modules;..\sdk_components\libraries\low_power_pwm</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1246,6 +1246,16 @@
               <FileType>1</FileType>
               <FilePath>..\sdk_components\libraries\scheduler\app_scheduler.c</FilePath>
             </File>
+            <File>
+              <FileName>low_power_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\low_power_pwm\low_power_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_timer_appsh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\timer\app_timer_appsh.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1491,27 +1501,40 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Bringup</GroupName>
+          <GroupName>Modules</GroupName>
           <Files>
             <File>
-              <FileName>gpio_test.c</FileName>
+              <FileName>strato_ignition.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\gpio_test.c</FilePath>
+              <FilePath>..\source\modules\strato_ignition.c</FilePath>
             </File>
             <File>
-              <FileName>ignition_test.c</FileName>
+              <FileName>strato_led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\ignition_test.c</FilePath>
+              <FilePath>..\source\modules\strato_led.c</FilePath>
             </File>
             <File>
-              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileName>ble_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+              <FilePath>..\source\ble_test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>drv_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_led.c</FilePath>
             </File>
             <File>
-              <FileName>drv_mpu9250.c</FileName>
+              <FileName>drv_humid_temp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
             </File>
             <File>
               <FileName>drv_htu21d.c</FileName>
@@ -1519,14 +1542,21 @@
               <FilePath>..\source\drivers\drv_htu21d.c</FilePath>
             </File>
             <File>
-              <FileName>drv_humid_temp.c</FileName>
+              <FileName>drv_mpu9250.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
+              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_sky66112_pa_lna.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_sky66112_pa_lna.c</FilePath>
             </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>Lib</GroupName>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -2775,6 +2805,16 @@
               <FileType>1</FileType>
               <FilePath>..\sdk_components\libraries\scheduler\app_scheduler.c</FilePath>
             </File>
+            <File>
+              <FileName>low_power_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\low_power_pwm\low_power_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_timer_appsh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\timer\app_timer_appsh.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3020,27 +3060,40 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Bringup</GroupName>
+          <GroupName>Modules</GroupName>
           <Files>
             <File>
-              <FileName>gpio_test.c</FileName>
+              <FileName>strato_ignition.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\gpio_test.c</FilePath>
+              <FilePath>..\source\modules\strato_ignition.c</FilePath>
             </File>
             <File>
-              <FileName>ignition_test.c</FileName>
+              <FileName>strato_led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\ignition_test.c</FilePath>
+              <FilePath>..\source\modules\strato_led.c</FilePath>
             </File>
             <File>
-              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileName>ble_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+              <FilePath>..\source\ble_test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>drv_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_led.c</FilePath>
             </File>
             <File>
-              <FileName>drv_mpu9250.c</FileName>
+              <FileName>drv_humid_temp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
             </File>
             <File>
               <FileName>drv_htu21d.c</FileName>
@@ -3048,14 +3101,21 @@
               <FilePath>..\source\drivers\drv_htu21d.c</FilePath>
             </File>
             <File>
-              <FileName>drv_humid_temp.c</FileName>
+              <FileName>drv_mpu9250.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
+              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_sky66112_pa_lna.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_sky66112_pa_lna.c</FilePath>
             </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>Lib</GroupName>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

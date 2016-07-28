@@ -27,18 +27,15 @@
 
 
 #include "strato_app_config.h"
-#include "drv_led.h"
+#include "strato_led.h"
 #include "strato_ignition.h"
+#include "ble_test.h"
 
-#include "drv_pressure.h"
-#include "drv_pressure_mpl3115A2.h"
-#include "nrf_gpio.h"
 #include "pca20027.h"
 #include "drv_mpu9250.h"
 #include "SEGGER_RTT.h"
 #include "app_util_platform.h"
 #include "drv_humid_temp.h"
-#include "app_timer.h"
 
 #define DEAD_BEEF                       0xDEADBEEF                                  /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
@@ -77,24 +74,6 @@ static void power_manage(void)
 //     SEGGER_RTT_printf(0,"Humidity: %d", drv_humid_temp_humidity_get());
 // }
 
-static ret_code_t leds_init()
-{
-    static drv_led_lpp_rgb_t rgb = DRV_LED_LPP_RGB_INIT();
-
-    APP_TIMER_DEF(m_r_timer);
-    APP_TIMER_DEF(m_g_timer);
-    APP_TIMER_DEF(m_b_timer);
-
-    drv_led_lpp_rgb_timers_t rgb_timers = {&m_r_timer,&m_g_timer,&m_b_timer};
-    drv_led_lpp_rgb_config_t rgb_config = DRV_LED_LPP_RGB_CONFIG_INIT(LED_R,
-                                                                      LED_G,
-                                                                      LED_B,
-                                                                      false,
-                                                                      &rgb_timers);
-
-    return drv_led_rgb_init(&rgb,&rgb_config);
-
-}
 /**@brief Function for application main entry.
  */
 int main(void)
@@ -107,11 +86,13 @@ int main(void)
     err_code = leds_init();
     APP_ERROR_CHECK(err_code);
 
-
-
-
-
-
+    err_code = leds_set_rgb(0x0000CCEE);
+    APP_ERROR_CHECK(err_code);
+    
+    ble_test_advertise();
+    
+    
+    
     // Enter main loop.
 
 
