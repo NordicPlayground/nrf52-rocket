@@ -4,11 +4,11 @@
 #include "app_error.h"
 #include "nrf_drv_saadc.h"
 
-typedef void (*ignition_adc_evt_handler_t) (float voltage);
+typedef void (*ignition_adc_evt_handler_t) (uint16_t result);
 typedef struct
 {
     ignition_adc_evt_handler_t adc_evt_handler;
-    uint32_t                  adc_sampling_period_ms;
+    uint32_t                   adc_sampling_period_ms;
 } ignition_init_t;
 
 void ignition_init(ignition_init_t * p_params);

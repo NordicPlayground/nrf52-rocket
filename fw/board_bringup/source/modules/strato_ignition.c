@@ -36,12 +36,11 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
         SEGGER_RTT_printf(0, "ADC event number: %d\r\n",(int)m_adc_evt_counter);
         for (i = 0; i < SAMPLES_IN_BUFFER; i++)
         {
-            SEGGER_RTT_printf(0, "%d\r\n", p_event->data.done.p_buffer[i]);
+            // SEGGER_RTT_printf(0, "%d\r\n", p_event->data.done.p_buffer[i]);
+            m_adc_cb(p_event->data.done.p_buffer[i]);
         }
         m_adc_evt_counter++;
     }
-    m_adc_cb(5.0f);
-    // TODO: this is just a place holder
 }
 
 void ignition_init(ignition_init_t * p_params)
@@ -58,11 +57,11 @@ void ignition_init(ignition_init_t * p_params)
     //Enable 5V Boost Converter
     nrf_gpio_pin_set(BOOST_5V_ENABLE);
 
-    SEGGER_RTT_printf(0, "Power Good");
     while(nrf_gpio_pin_read(POWER_GOOD) == 1)
     {
         SEGGER_RTT_printf(0, "...");
     }
+    SEGGER_RTT_printf(0, "Power Good");
     SEGGER_RTT_printf(0, "\r\n");
 
 
@@ -83,10 +82,10 @@ void ignition_init(ignition_init_t * p_params)
 
     /* setup m_timer for compare event every 500ms */
     uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, m_sample_period);
-    nrf_drv_timer_extended_compare(&m_timer, NRF_TIMER_CC_CHANNEL0, ticks, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, false);
+    nrf_drv_timer_extended_compare(&m_timer, NRF_TIMER_CC_CHANNEL1, ticks, NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK, false);
     nrf_drv_timer_enable(&m_timer);
 
-    uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer, NRF_TIMER_CC_CHANNEL0);
+    uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer, NRF_TIMER_CC_CHANNEL1);
     uint32_t saadc_sample_event_addr = nrf_drv_saadc_sample_task_get();
 
     /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
@@ -97,7 +96,18 @@ void ignition_init(ignition_init_t * p_params)
     APP_ERROR_CHECK(err_code);
 
     nrf_saadc_channel_config_t channel_config =
-            NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(nrf_drv_saadc_gpio_to_ain(VSC_SENSE));
+    {
+        .resistor_p = NRF_SAADC_RESISTOR_DISABLED,
+        .resistor_n = NRF_SAADC_RESISTOR_DISABLED,
+        .gain       = NRF_SAADC_GAIN1_3,
+        .reference  = NRF_SAADC_REFERENCE_VDD4,
+        .acq_time   = NRF_SAADC_ACQTIME_10US,
+        .mode       = NRF_SAADC_MODE_SINGLE_ENDED,
+        .pin_p      = nrf_drv_saadc_gpio_to_ain(VSC_SENSE),
+        .pin_n      = NRF_SAADC_INPUT_DISABLED
+    };
+
+    //NULL = Default config of 10bit, no oversampling, and irq priorotiy low
     err_code = nrf_drv_saadc_init(NULL, saadc_callback);
     if (err_code != NRF_ERROR_INVALID_STATE)
     {

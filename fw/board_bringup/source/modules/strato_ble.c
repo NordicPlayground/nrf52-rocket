@@ -1,4 +1,4 @@
-#include "ble_test.h"
+#include "strato_ble.h"
 #include "ble_gap.h"
 #include "softdevice_handler.h"
 #include "ble_srv_common.h"
@@ -249,10 +249,13 @@ void ble_test_advertise(void)
     services_init();
     advertising_init();
     conn_params_init();
+    
+    
 
     drv_sky66112_init(CTX, CRX, PA_LNA_ANT1);
-    // drv_sky66112_tx_high_power();
-    // drv_sky66112_rx_lna();
+//    drv_sky66112_tx_high_power();
+//    drv_sky66112_rx_lna();
+    
     drv_sky66112_bypass();
 
     // Start execution.

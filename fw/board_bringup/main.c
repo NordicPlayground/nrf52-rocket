@@ -29,7 +29,7 @@
 #include "strato_app_config.h"
 #include "strato_led.h"
 #include "strato_ignition.h"
-#include "ble_test.h"
+#include "strato_ble.h"
 
 #include "pca20027.h"
 #include "drv_mpu9250.h"
@@ -63,6 +63,12 @@ static void power_manage(void)
     APP_ERROR_CHECK(err_code);
 }
 
+static void supercap_voltage_evt_handler( uint16_t result )
+{
+    double vsc = ((double)(result*3))*(0.825)/((1024));
+    APP_ERROR_CHECK(NRF_SUCCESS);
+}
+
 // static void press_evt_handler(drv_pressure_evt_t const * p_evt,
 //                               void *                     p_context)
 // {
@@ -88,11 +94,22 @@ int main(void)
 
     err_code = leds_set_rgb(0x0000CCEE);
     APP_ERROR_CHECK(err_code);
+
+
+    ignition_init_t ignition_init_params =
+    {
+        .adc_evt_handler = supercap_voltage_evt_handler,
+        .adc_sampling_period_ms = 500
+    };
+
+   ignition_init(&ignition_init_params);
     
-    ble_test_advertise();
-    
-    
-    
+    ignition_cap_adc_sample_begin();
+
+//    ble_test_advertise();
+
+
+
     // Enter main loop.
 
 
@@ -135,8 +152,7 @@ int main(void)
 
     for (;;)
     {
-//        gpio_test_all_read();
-    //    power_manage();
+//        power_manage();
     }
 }
 
