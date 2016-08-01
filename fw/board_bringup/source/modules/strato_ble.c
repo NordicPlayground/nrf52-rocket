@@ -12,8 +12,10 @@
 #include "strato_app_config.h"
 #include "drv_sky66112_pa_lna.h"
 #include "ble_hci.h"
+#include "ble_sts.h"
 
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
+static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
 
 /**@brief Function for handling a Connection Parameters error.
  *
@@ -63,9 +65,7 @@ static void advertising_init(void)
     uint32_t      err_code;
     ble_advdata_t advdata;
 
-    #define LBS_UUID_SERVICE 1234
-
-    ble_uuid_t adv_uuids[] = {{LBS_UUID_SERVICE, BLE_UUID_TYPE_BLE}};
+    ble_uuid_t adv_uuids = {BLE_UUID_STS_SERVICE, m_sts.uuid_type};
 
     // Build and set advertising data
     memset(&advdata, 0, sizeof(advdata));
@@ -73,6 +73,8 @@ static void advertising_init(void)
     advdata.name_type          = BLE_ADVDATA_FULL_NAME;
     advdata.include_appearance = true;
     advdata.flags              = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
+    advdata.uuids_more_available.uuid_cnt = 1;
+    advdata.uuids_more_available.p_uuids = &adv_uuids;
 
     err_code = ble_advdata_set(&advdata, NULL);
     APP_ERROR_CHECK(err_code);
@@ -124,9 +126,54 @@ static void conn_params_init(void)
 
 /**@brief Function for initializing services that will be used by the application.
  */
-static void services_init(void)
+static void ble_sts_evt_handler(ble_sts_t        * p_sts,
+                                ble_sts_evt_type_t evt_type,
+                                uint8_t          * p_data,
+                                uint16_t           length)
 {
 
+}
+
+static void services_init(void)
+{
+    uint32_t err_code;
+    ble_sts_temperature_t temp_init =
+    {
+        .integer = 0,
+        .decimal = 0
+    };
+
+    ble_sts_altitude_t alti_init =
+    {
+        .integer = 0,
+        .decimal = 0
+    };
+
+    ble_sts_accel_t accel_init =
+    {
+        .x = 0,
+        .y = 0,
+        .z = 0
+    };
+
+    ble_sts_config_t config_init =
+    {
+        .temperature_interval_ms = 500,
+        .altitude_interval_ms = 500,
+        .accel_interval_ms = 500,
+        .pressure_mode = STS_PRESSURE_MODE_ALTIMETER,
+    };
+
+    ble_sts_init_t sts_init =
+    {
+        .p_init_temperature = &temp_init,
+        .p_init_altitude = &alti_init,
+        .p_init_accel = &accel_init,
+        .p_init_config = &config_init,
+        .evt_handler = ble_sts_evt_handler
+    };
+    err_code = ble_sts_init(&m_sts, &sts_init);
+    APP_ERROR_CHECK(err_code);
 }
 
 /**@brief Function for starting advertising.
@@ -200,6 +247,7 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
 static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
 {
     on_ble_evt(p_ble_evt);
+    ble_sts_on_ble_evt(&m_sts, p_ble_evt);
     ble_conn_params_on_ble_evt(p_ble_evt);
 }
 
@@ -249,13 +297,13 @@ void ble_test_advertise(void)
     services_init();
     advertising_init();
     conn_params_init();
-    
-    
+
+
 
     drv_sky66112_init(CTX, CRX, PA_LNA_ANT1);
 //    drv_sky66112_tx_high_power();
 //    drv_sky66112_rx_lna();
-    
+
     drv_sky66112_bypass();
 
     // Start execution.

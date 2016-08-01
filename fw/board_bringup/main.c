@@ -103,10 +103,10 @@ int main(void)
     };
 
    ignition_init(&ignition_init_params);
-    
-    ignition_cap_adc_sample_begin();
 
-//    ble_test_advertise();
+   ignition_cap_adc_sample_begin();
+
+   ble_test_advertise();
 
 
 
@@ -152,7 +152,7 @@ int main(void)
 
     for (;;)
     {
-//        power_manage();
+       power_manage();
     }
 }
 
