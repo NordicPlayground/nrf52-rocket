@@ -10,6 +10,7 @@
       <TargetName>nrf52832_xxaa_s132</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>nRF52832_xxAA</Device>
@@ -31,7 +32,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\SVD\nrf52.xml</SFDFile>
+          <SFDFile>..\..\..\..\nRF5_SDK_11.0.0_89a8197\SVD\nrf52.xml</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -350,7 +351,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -370,9 +371,9 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define> BLE_STACK_SUPPORT_REQD BOARD_PCA10040 NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_UART=1 NRF52 SOFTDEVICE_PRESENT SWI_DISABLE0</Define>
+              <Define>BLE_STACK_SUPPORT_REQD  NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 DEBUG NRF52 CONFIG_NFCT_PINS_AS_GPIOS SOFTDEVICE_PRESENT SWI_DISABLE0 EMPL_TARGET_NRF52</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\config\ble_app_template_s132_pca10040;..\..\..\config;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\ble_advertising;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\device_manager;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\common;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\config;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\delay;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\gpiote;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\hal;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\pstorage;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\uart;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\button;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\experimental_section_vars;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\fstorage;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\fstorage\config;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\sensorsim;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\timer;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\trace;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\uart;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\common\softdevice_handler;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\s132\headers;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\s132\headers\nrf52;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\toolchain;..\..\..\..\..\bsp;..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt</IncludePath>
+              <IncludePath>..\config;..\sdk_components\ble\ble_services\ble_lbs;..\sdk_components\ble\common;..\sdk_components\drivers_nrf\common;..\sdk_components\drivers_nrf\config;..\sdk_components\drivers_nrf\delay;..\sdk_components\drivers_nrf\gpiote;..\sdk_components\drivers_nrf\hal;..\sdk_components\drivers_nrf\uart;..\sdk_components\libraries\button;..\sdk_components\libraries\fifo;..\sdk_components\libraries\timer;..\sdk_components\libraries\uart;..\sdk_components\libraries\util;..\sdk_components\softdevice\common\softdevice_handler;..\sdk_components\softdevice\s132\headers;..\sdk_components\softdevice\s132\headers\nrf52;..\sdk_components\toolchain;..\sdk_external\segger_rtt;..\include;..\sdk_components\drivers_nrf\timer;..\sdk_components\drivers_nrf\ppi;..\sdk_components\drivers_nrf\saadc;..\include\drivers;..\sdk_components\drivers_nrf\twi_master;..\libs\eMD6\core\driver\eMPL;..\sdk_components\libraries\scheduler;..\include\modules;..\sdk_components\libraries\low_power_pwm;..\include\ble_services</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -387,7 +388,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define> BLE_STACK_SUPPORT_REQD BOARD_PCA10040 NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_UART=1 NRF52 SOFTDEVICE_PRESENT SWI_DISABLE0</Define>
+              <Define>BLE_STACK_SUPPORT_REQD BOARD_PCA10040 NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_UART=1 NRF52 SOFTDEVICE_PRESENT SWI_DISABLE0</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -418,7 +419,7 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\main.c</FilePath>
+              <FilePath>..\main.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -466,21 +467,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Documentation</GroupName>
-          <Files>
-            <File>
-              <FileName>Abstract.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\Abstract.txt</FilePath>
-            </File>
-            <File>
-              <FileName>license.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\license.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -490,59 +476,7 @@
             <File>
               <FileName>ble_advdata.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common\ble_advdata.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>ble_advertising.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\ble_advertising\ble_advertising.c</FilePath>
+              <FilePath>..\sdk_components\ble\common\ble_advdata.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -594,7 +528,59 @@
             <File>
               <FileName>ble_conn_params.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common\ble_conn_params.c</FilePath>
+              <FilePath>..\sdk_components\ble\common\ble_conn_params.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>ble_lbs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\ble\ble_services\ble_lbs\ble_lbs.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -646,59 +632,7 @@
             <File>
               <FileName>ble_srv_common.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common\ble_srv_common.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>device_manager_peripheral.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\device_manager\device_manager_peripheral.c</FilePath>
+              <FilePath>..\sdk_components\ble\common\ble_srv_common.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -753,61 +687,9 @@
           <GroupName>nRF_Drivers</GroupName>
           <Files>
             <File>
-              <FileName>app_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\uart\app_uart.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\delay\nrf_delay.c</FilePath>
+              <FilePath>..\sdk_components\drivers_nrf\delay\nrf_delay.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -859,7 +741,7 @@
             <File>
               <FileName>nrf_drv_common.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\common\nrf_drv_common.c</FilePath>
+              <FilePath>..\sdk_components\drivers_nrf\common\nrf_drv_common.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -911,532 +793,7 @@
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>nrf_drv_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\uart\nrf_drv_uart.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>pstorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\pstorage\pstorage.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>nRF_Libraries</GroupName>
-          <Files>
-            <File>
-              <FileName>app_button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\button\app_button.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_error.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\app_error.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_error_weak.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\app_error_weak.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\timer\app_timer.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_trace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\trace\app_trace.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_util_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\app_util_platform.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>fstorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\fstorage\fstorage.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>nrf_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\nrf_assert.c</FilePath>
+              <FilePath>..\sdk_components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1488,7 +845,42 @@
             <File>
               <FileName>nrf_log.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\nrf_log.c</FilePath>
+              <FilePath>..\sdk_components\libraries\util\nrf_log.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\timer\nrf_drv_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_ppi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\ppi\nrf_drv_ppi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\saadc\nrf_drv_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\hal\nrf_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\twi_master\nrf_drv_twi.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>nRF_Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>app_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\button\app_button.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1538,9 +930,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>retarget.c</FileName>
+              <FileName>app_error.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\uart\retarget.c</FilePath>
+              <FilePath>..\sdk_components\libraries\util\app_error.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1590,9 +982,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>sensorsim.c</FileName>
+              <FileName>app_error_weak.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\sensorsim\sensorsim.c</FilePath>
+              <FilePath>..\sdk_components\libraries\util\app_error_weak.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1640,6 +1032,229 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>app_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\fifo\app_fifo.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\timer\app_timer.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_util_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\util\app_util_platform.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>nrf_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\util\nrf_assert.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\scheduler\app_scheduler.c</FilePath>
+            </File>
+            <File>
+              <FileName>low_power_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\low_power_pwm\low_power_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_timer_appsh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\timer\app_timer_appsh.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1649,7 +1264,7 @@
             <File>
               <FileName>RTT_Syscalls_KEIL.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\RTT_Syscalls_KEIL.c</FilePath>
+              <FilePath>..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\RTT_Syscalls_KEIL.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1701,7 +1316,7 @@
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT.c</FilePath>
+              <FilePath>..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1753,7 +1368,7 @@
             <File>
               <FileName>SEGGER_RTT_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT_printf.c</FilePath>
+              <FilePath>..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT_printf.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1810,7 +1425,7 @@
             <File>
               <FileName>s132_nrf52_2.0.0_licence_agreement.txt</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\s132\doc\s132_nrf52_2.0.0_licence_agreement.txt</FilePath>
+              <FilePath>..\sdk_components\softdevice\s132\doc\s132_nrf52_2.0.0_licence_agreement.txt</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1834,7 +1449,7 @@
             <File>
               <FileName>softdevice_handler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\common\softdevice_handler\softdevice_handler.c</FilePath>
+              <FilePath>..\sdk_components\softdevice\common\softdevice_handler\softdevice_handler.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -1886,6 +1501,74 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Modules</GroupName>
+          <Files>
+            <File>
+              <FileName>strato_ignition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_ignition.c</FilePath>
+            </File>
+            <File>
+              <FileName>strato_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>strato_ble.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_ble.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>drv_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_humid_temp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_htu21d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_htu21d.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_mpu9250.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_sky66112_pa_lna.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_sky66112_pa_lna.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BLE_Services</GroupName>
+          <Files>
+            <File>
+              <FileName>ble_sts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\ble_services\ble_sts.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
@@ -1933,7 +1616,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\s132\hex\</OutputDirectory>
+          <OutputDirectory>..\sdk_components\softdevice\s132\hex\</OutputDirectory>
           <OutputName>s132_nrf52_2.0.0_softdevice.hex</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -2259,7 +1942,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\config\ble_app_template_s132_pca10040;..\..\..\config</IncludePath>
+              <IncludePath>..\..\..\config\experimental_ble_app_blinky_s132_pca10040;..\..\..\config</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2305,7 +1988,7 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\main.c</FilePath>
+              <FilePath>..\main.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -2353,21 +2036,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Documentation</GroupName>
-          <Files>
-            <File>
-              <FileName>Abstract.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\Abstract.txt</FilePath>
-            </File>
-            <File>
-              <FileName>license.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\license.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -2377,59 +2045,7 @@
             <File>
               <FileName>ble_advdata.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common\ble_advdata.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>ble_advertising.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\ble_advertising\ble_advertising.c</FilePath>
+              <FilePath>..\sdk_components\ble\common\ble_advdata.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -2481,7 +2097,59 @@
             <File>
               <FileName>ble_conn_params.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common\ble_conn_params.c</FilePath>
+              <FilePath>..\sdk_components\ble\common\ble_conn_params.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>ble_lbs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\ble\ble_services\ble_lbs\ble_lbs.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -2533,59 +2201,7 @@
             <File>
               <FileName>ble_srv_common.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\common\ble_srv_common.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>device_manager_peripheral.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\ble\device_manager\device_manager_peripheral.c</FilePath>
+              <FilePath>..\sdk_components\ble\common\ble_srv_common.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -2640,61 +2256,9 @@
           <GroupName>nRF_Drivers</GroupName>
           <Files>
             <File>
-              <FileName>app_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\uart\app_uart.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\delay\nrf_delay.c</FilePath>
+              <FilePath>..\sdk_components\drivers_nrf\delay\nrf_delay.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -2746,7 +2310,7 @@
             <File>
               <FileName>nrf_drv_common.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\common\nrf_drv_common.c</FilePath>
+              <FilePath>..\sdk_components\drivers_nrf\common\nrf_drv_common.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -2798,532 +2362,7 @@
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>nrf_drv_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\uart\nrf_drv_uart.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>pstorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\drivers_nrf\pstorage\pstorage.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>nRF_Libraries</GroupName>
-          <Files>
-            <File>
-              <FileName>app_button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\button\app_button.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_error.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\app_error.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_error_weak.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\app_error_weak.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\timer\app_timer.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_trace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\trace\app_trace.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>app_util_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\app_util_platform.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>fstorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\fstorage\fstorage.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>0</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>0</vShortEn>
-                    <vShortWch>0</vShortWch>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>nrf_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\nrf_assert.c</FilePath>
+              <FilePath>..\sdk_components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3375,7 +2414,42 @@
             <File>
               <FileName>nrf_log.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\util\nrf_log.c</FilePath>
+              <FilePath>..\sdk_components\libraries\util\nrf_log.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\timer\nrf_drv_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_ppi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\ppi\nrf_drv_ppi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\saadc\nrf_drv_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_saadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\hal\nrf_saadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\drivers_nrf\twi_master\nrf_drv_twi.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>nRF_Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>app_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\button\app_button.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3425,9 +2499,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>retarget.c</FileName>
+              <FileName>app_error.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\uart\retarget.c</FilePath>
+              <FilePath>..\sdk_components\libraries\util\app_error.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3477,9 +2551,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>sensorsim.c</FileName>
+              <FileName>app_error_weak.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\libraries\sensorsim\sensorsim.c</FilePath>
+              <FilePath>..\sdk_components\libraries\util\app_error_weak.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3527,6 +2601,229 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>app_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\fifo\app_fifo.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\timer\app_timer.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_util_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\util\app_util_platform.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>nrf_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\util\nrf_assert.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>0</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>0</vShortEn>
+                    <vShortWch>0</vShortWch>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\scheduler\app_scheduler.c</FilePath>
+            </File>
+            <File>
+              <FileName>low_power_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\low_power_pwm\low_power_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_timer_appsh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sdk_components\libraries\timer\app_timer_appsh.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3536,7 +2833,7 @@
             <File>
               <FileName>RTT_Syscalls_KEIL.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\RTT_Syscalls_KEIL.c</FilePath>
+              <FilePath>..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\RTT_Syscalls_KEIL.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3588,7 +2885,7 @@
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT.c</FilePath>
+              <FilePath>..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3640,7 +2937,7 @@
             <File>
               <FileName>SEGGER_RTT_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT_printf.c</FilePath>
+              <FilePath>..\..\..\..\nRF5_SDK_11.0.0_89a8197\external\segger_rtt\SEGGER_RTT_printf.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3697,7 +2994,7 @@
             <File>
               <FileName>s132_nrf52_2.0.0_licence_agreement.txt</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\s132\doc\s132_nrf52_2.0.0_licence_agreement.txt</FilePath>
+              <FilePath>..\sdk_components\softdevice\s132\doc\s132_nrf52_2.0.0_licence_agreement.txt</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3721,7 +3018,7 @@
             <File>
               <FileName>softdevice_handler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\nRF5_SDK_11.0.0_89a8197\components\softdevice\common\softdevice_handler\softdevice_handler.c</FilePath>
+              <FilePath>..\sdk_components\softdevice\common\softdevice_handler\softdevice_handler.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>0</UseCPPCompiler>
@@ -3769,6 +3066,74 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules</GroupName>
+          <Files>
+            <File>
+              <FileName>strato_ignition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_ignition.c</FilePath>
+            </File>
+            <File>
+              <FileName>strato_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>strato_ble.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_ble.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>drv_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_humid_temp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_humid_temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_htu21d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_htu21d.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_mpu9250.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pressure_mpl3115A2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_pressure_mpl3115A2.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_sky66112_pa_lna.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\drivers\drv_sky66112_pa_lna.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BLE_Services</GroupName>
+          <Files>
+            <File>
+              <FileName>ble_sts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\ble_services\ble_sts.c</FilePath>
             </File>
           </Files>
         </Group>

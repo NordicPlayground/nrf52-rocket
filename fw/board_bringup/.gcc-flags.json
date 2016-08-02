@@ -1,0 +1,8 @@
+{
+  "execPath": "arm-none-eabi-gcc.exe",
+  "gccDefaultCFlags": "-c -fsyntax-only -Wall -std=gnu99 -DBLE_STACK_SUPPORT_REQD -DS132 -DNRF52 -DSOFTDEVICE_PRESENT -DSWI_DISABLE0 -DBSP_DEFINES_ONLY -DARM_MATH_CM4 -DMPU9250 -DEMPL -DUSE_DMP -DEMPL_TARGET_NRF52",
+  "gccDefaultCppFlags": "-c -Wall -std=gnu++98",
+  "gccErrorLimit": 0,
+  "gccIncludePaths": "./config,./sdk_components/ble/ble_services/ble_lbs,./sdk_components/ble/common,./sdk_components/drivers_nrf/common,./sdk_components/drivers_nrf/config,./sdk_components/drivers_nrf/delay,./sdk_components/drivers_nrf/gpiote,./sdk_components/drivers_nrf/hal,./sdk_components/drivers_nrf/uart,./sdk_components/libraries/button,./sdk_components/libraries/fifo,./sdk_components/libraries/timer,./sdk_components/libraries/uart,./sdk_components/libraries/util,./sdk_components/softdevice/common/softdevice_handler,./sdk_components/softdevice/s132/headers,./sdk_components/softdevice/s132/headers/nrf52,./sdk_components/toolchain,./sdk_external/segger_rtt,./include,./sdk_components/drivers_nrf/timer,./sdk_components/drivers_nrf/ppi,./sdk_components/drivers_nrf/saadc,./include/drivers,./sdk_components/drivers_nrf/twi_master,./libs/eMD6/core/driver/eMPL,./sdk_components/libraries/scheduler,./include/modules,",
+  "gccSuppressWarnings": false
+}

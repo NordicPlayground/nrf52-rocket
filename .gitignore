@@ -5,5 +5,9 @@ JLinkSettings.ini
 JLinkLog.txt
 *.uvguix*
 
-## Documents ## 
+## Documents ##
 technical_info
+
+## SYMLINK ##
+sdk_components
+sdk_external
