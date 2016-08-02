@@ -15,9 +15,9 @@
 #include "sdk_common.h"
 
 #define BLE_UUID_STS_ALTITUDE_CHAR    0x0002                      /**< The UUID of the altitude Characteristic. */
-#define BLE_UUID_STS_ACCEL_CHAR       0x0003                      /**< The UUID of the accel-x Characteristic. */
+#define BLE_UUID_STS_ACCEL_CHAR       0x0003                      /**< The UUID of the accel Characteristic. */
 #define BLE_UUID_STS_TEMP_CHAR        0x0004                      /**< The UUID of the temperature Characteristic. */
-#define BLE_UUID_STS_CONFIG_CHAR        0x0004                      /**< The UUID of the config Characteristic. */
+#define BLE_UUID_STS_CONFIG_CHAR      0x0005                      /**< The UUID of the config Characteristic. */
 
 // 1beexxxx-5806-11e6-8b77-86f30ca893d3
 #define STS_BASE_UUID                  {{0xd3, 0x93, 0xa8, 0x0c, 0xf3, 0x86, 0x77, 0x8b, 0xe6, 0x11, 0x06, 0x58, 0x00, 0x00, 0xee, 0x1b}} /**< Used vendor specific UUID. */
@@ -413,16 +413,16 @@ uint32_t ble_sts_init(ble_sts_t * p_sts, const ble_sts_init_t * p_sts_init)
                                         &p_sts->service_handle);
     VERIFY_SUCCESS(err_code);
 
-    // Add the temperature Characteristic.
-    err_code = temperature_char_add(p_sts, p_sts_init);
-    VERIFY_SUCCESS(err_code);
-
     // Add the altitude Characteristic.
     err_code = altitude_char_add(p_sts, p_sts_init);
     VERIFY_SUCCESS(err_code);
 
     // Add the accelCharacteristic.
     err_code = accel_char_add(p_sts, p_sts_init);
+    VERIFY_SUCCESS(err_code);
+
+    // Add the temperature Characteristic.
+    err_code = temperature_char_add(p_sts, p_sts_init);
     VERIFY_SUCCESS(err_code);
 
     // Add the config Characteristic.
