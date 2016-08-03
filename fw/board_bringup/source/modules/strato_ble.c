@@ -13,9 +13,11 @@
 #include "drv_sky66112_pa_lna.h"
 #include "ble_hci.h"
 #include "ble_sts.h"
+#include "ble_srs.h"
 
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
+static ble_srs_t                        m_srs;                                      /**< Instance of Strato Telemetry Service. */
 
 /**@brief Function for handling a Connection Parameters error.
  *
@@ -124,7 +126,6 @@ static void conn_params_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
                                 ble_sts_evt_type_t evt_type,
                                 uint8_t          * p_data,
@@ -145,19 +146,18 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
  */
 static void services_init(void)
 {
+    //Init Telemetry Service
     uint32_t err_code;
-    
-    //Telemetry Service Init
     ble_sts_temperature_t temp_init =
     {
-        .integer = 20,
-        .decimal = 5
+        .integer = 0,
+        .decimal = 0
     };
 
     ble_sts_altitude_t alti_init =
     {
-        .integer = 800,
-        .decimal = 12
+        .integer = 0,
+        .decimal = 0
     };
 
     ble_sts_accel_t accel_init =
@@ -184,10 +184,44 @@ static void services_init(void)
         .evt_handler = ble_sts_evt_handler
     };
     err_code = ble_sts_init(&m_sts, &sts_init);
-    
-    //Rocketry Service Init
-    
     APP_ERROR_CHECK(err_code);
+
+    //Init Rocketry Service
+    para_servo_config_t servo_config =
+    {
+        .position_open = 45,
+        .position_closed = -45,
+    };
+
+    ble_srs_parachute_servo_t para_servo =
+    {
+        .p_config = &servo_config,
+        .ctrl = PARA_SERVO_CLOSE
+    };
+
+    ble_srs_cap_volt_t cap_volt =
+    {
+        .integer = 0,
+        .decimal = 0
+    };
+
+    ble_srs_cap_t super_cap =
+    {
+        .ctrl = BLE_SRS_CAP_IDLE,
+        .p_voltage = &cap_volt
+    };
+
+    ble_srs_init_t srs_init =
+    {
+        .p_init_cap = &super_cap,
+        .init_ignition = BLE_SRS_IGNITION_OFF,
+        .p_init_para_servo = &para_servo,
+        .evt_handler = ble_srs_evt_handler
+    };
+
+    err_code = ble_srs_init(&m_srs, &srs_init);
+    APP_ERROR_CHECK(err_code);
+
 }
 
 /**@brief Function for starting advertising.
@@ -284,6 +318,9 @@ static void ble_stack_init(void)
                                                     PERIPHERAL_LINK_COUNT,
                                                     &ble_enable_params);
     APP_ERROR_CHECK(err_code);
+
+    ble_enable_params.common_enable_params.vs_uuid_count = 2;
+    ble_enable_params.gatts_enable_params.attr_tab_size = 2048;
 
     //Check the ram settings against the used number of links
     CHECK_RAM_START_ADDR(CENTRAL_LINK_COUNT,PERIPHERAL_LINK_COUNT);

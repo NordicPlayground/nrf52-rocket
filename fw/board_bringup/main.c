@@ -108,8 +108,6 @@ int main(void)
 
    ble_test_advertise();
 
-
-
     // Enter main loop.
 
 

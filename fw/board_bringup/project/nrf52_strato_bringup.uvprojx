@@ -338,8 +338,8 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x20002080</StartAddress>
-                <Size>0xdf80</Size>
+                <StartAddress>0x20002278</StartAddress>
+                <Size>0xdd88</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -371,7 +371,7 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>BLE_STACK_SUPPORT_REQD  NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 DEBUG NRF52 CONFIG_NFCT_PINS_AS_GPIOS SOFTDEVICE_PRESENT SWI_DISABLE0 EMPL_TARGET_NRF52</Define>
+              <Define>BLE_STACK_SUPPORT_REQD  NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 NRF52 CONFIG_NFCT_PINS_AS_GPIOS DEBUG SOFTDEVICE_PRESENT SWI_DISABLE0 EMPL_TARGET_NRF52</Define>
               <Undefine></Undefine>
               <IncludePath>..\config;..\sdk_components\ble\ble_services\ble_lbs;..\sdk_components\ble\common;..\sdk_components\drivers_nrf\common;..\sdk_components\drivers_nrf\config;..\sdk_components\drivers_nrf\delay;..\sdk_components\drivers_nrf\gpiote;..\sdk_components\drivers_nrf\hal;..\sdk_components\drivers_nrf\uart;..\sdk_components\libraries\button;..\sdk_components\libraries\fifo;..\sdk_components\libraries\timer;..\sdk_components\libraries\uart;..\sdk_components\libraries\util;..\sdk_components\softdevice\common\softdevice_handler;..\sdk_components\softdevice\s132\headers;..\sdk_components\softdevice\s132\headers\nrf52;..\sdk_components\toolchain;..\sdk_external\segger_rtt;..\include;..\sdk_components\drivers_nrf\timer;..\sdk_components\drivers_nrf\ppi;..\sdk_components\drivers_nrf\saadc;..\include\drivers;..\sdk_components\drivers_nrf\twi_master;..\libs\eMD6\core\driver\eMPL;..\sdk_components\libraries\scheduler;..\include\modules;..\sdk_components\libraries\low_power_pwm;..\include\ble_services</IncludePath>
             </VariousControls>
@@ -1513,6 +1513,11 @@
               <FileName>ble_sts.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\ble_services\ble_sts.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_srs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\ble_services\ble_srs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3030,6 +3035,11 @@
               <FileName>ble_sts.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\ble_services\ble_sts.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_srs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\ble_services\ble_srs.c</FilePath>
             </File>
           </Files>
         </Group>

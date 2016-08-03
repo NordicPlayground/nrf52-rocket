@@ -144,10 +144,10 @@ static uint32_t ignition_char_add(ble_srs_t * p_srs, const ble_srs_init_t * p_sr
 
     attr_char_value.p_uuid    = &ble_uuid;
     attr_char_value.p_attr_md = &attr_md;
-    attr_char_value.init_len  = sizeof(ble_srs_ignition_state_t);
+    attr_char_value.init_len  = sizeof(ble_srs_ignition_ctrl_t);
     attr_char_value.init_offs = 0;
     attr_char_value.p_value   = (uint8_t *)p_srs_init->init_ignition;
-    attr_char_value.max_len   = sizeof(ble_srs_ignition_state_t);
+    attr_char_value.max_len   = sizeof(ble_srs_ignition_ctrl_t);
 
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
                                            &char_md,
@@ -208,7 +208,7 @@ static uint32_t cap_volt_char_add(ble_srs_t * p_srs, const ble_srs_init_t * p_sr
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(ble_srs_cap_volt_t);
     attr_char_value.init_offs = 0;
-    attr_char_value.p_value   = (uint8_t *)p_srs_init->p_init_cap->voltage;
+    attr_char_value.p_value   = (uint8_t *)p_srs_init->p_init_cap->p_voltage;
     attr_char_value.max_len   = sizeof(ble_srs_cap_volt_t);;
 
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
@@ -367,7 +367,7 @@ static uint32_t para_servo_config_char_add(ble_srs_t * p_srs, const ble_srs_init
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(para_servo_config_t);
     attr_char_value.init_offs = 0;
-    attr_char_value.p_value   = (uint8_t *)p_srs_init->p_init_para_servo->config;
+    attr_char_value.p_value   = (uint8_t *)p_srs_init->p_init_para_servo->p_config;
     attr_char_value.max_len   = sizeof(para_servo_config_t);
 
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
@@ -416,9 +416,6 @@ uint32_t ble_srs_init(ble_srs_t * p_srs, const ble_srs_init_t * p_srs_init)
     // Initialize the service structure.
     p_srs->conn_handle                  = BLE_CONN_HANDLE_INVALID;
     p_srs->evt_handler                  = p_srs_init->evt_handler;
-    p_srs->is_temperature_notif_enabled = false;
-    p_srs->is_altitude_notif_enabled    = false;
-    p_srs->is_accel_notif_enabled    = false;
 
     // Add a custom base UUID.
     err_code = sd_ble_uuid_vs_add(&srs_base_uuid, &p_srs->uuid_type);
@@ -456,10 +453,10 @@ uint32_t ble_srs_init(ble_srs_t * p_srs, const ble_srs_init_t * p_srs_init)
     return NRF_SUCCESS;
 }
 
-uint32_t ble_srs_capacitor_voltage_set(ble_srs_t * p_srs, ble_srs_cap_volt_t * p_data);
+uint32_t ble_srs_capacitor_voltage_set(ble_srs_t * p_srs, ble_srs_cap_volt_t * p_data)
 {
     ble_gatts_hvx_params_t hvx_params;
-    uint16_t               length = sizeof(ble_srs_cap_volt_t);
+    uint16_t length = sizeof(ble_srs_cap_volt_t);
 
     VERIFY_PARAM_NOT_NULL(p_srs);
 

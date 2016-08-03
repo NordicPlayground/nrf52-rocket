@@ -45,8 +45,8 @@
 
 typedef enum
 {
-    PARA_SERVO_OPEN,
     PARA_SERVO_CLOSE,
+    PARA_SERVO_OPEN,
 } para_servo_ctrl_t;
 
 typedef PACKED( struct
@@ -57,15 +57,15 @@ typedef PACKED( struct
 
 typedef PACKED( struct
 {
-    para_servo_config_t config;
+    para_servo_config_t * p_config;
     para_servo_ctrl_t  ctrl;
 }) ble_srs_parachute_servo_t;
 
 typedef enum
 {
-    BLE_SRS_CAP_CHARGE,
-    BLE_SRS_CAP_DRAIN,
-    BLE_SRS_CAP_SAMPLE
+    BLE_SRS_CAP_IDLE,
+    BLE_SRS_CAP_SAMPLE,
+    BLE_SRS_CAP_DRAIN
 }ble_srs_cap_ctrl_t;
 
 typedef PACKED( struct
@@ -77,13 +77,13 @@ typedef PACKED( struct
 typedef PACKED( struct
 {
     ble_srs_cap_ctrl_t ctrl;
-    ble_srs_cap_volt_t voltage;
+    ble_srs_cap_volt_t * p_voltage;
 }) ble_srs_cap_t;
 
 typedef enum
 {
-    BLE_SRS_IGNITION_ON,
     BLE_SRS_IGNITION_OFF,
+    BLE_SRS_IGNITION_ON,
 }ble_srs_ignition_ctrl_t;
 
 typedef enum
@@ -114,7 +114,7 @@ typedef struct
 {
     ble_srs_cap_t                 * p_init_cap;
     ble_srs_ignition_ctrl_t        init_ignition;
-    ble_srs_parachute_servo_t     * p_init_para_servo
+    ble_srs_parachute_servo_t     * p_init_para_servo;
     ble_srs_evt_handler_t           evt_handler; /**< Event handler to be called for handling received data. */
 } ble_srs_init_t;
 
