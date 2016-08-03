@@ -124,8 +124,7 @@ static void conn_params_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-/**@brief Function for initializing services that will be used by the application.
- */
+
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
                                 ble_sts_evt_type_t evt_type,
                                 uint8_t          * p_data,
@@ -134,19 +133,31 @@ static void ble_sts_evt_handler(ble_sts_t        * p_sts,
 
 }
 
+static void ble_srs_evt_handler(ble_srs_t        * p_srs,
+                                ble_srs_evt_type_t evt_type,
+                                uint8_t          * p_data,
+                                uint16_t           length)
+{
+
+}
+
+/**@brief Function for initializing services that will be used by the application.
+ */
 static void services_init(void)
 {
     uint32_t err_code;
+    
+    //Telemetry Service Init
     ble_sts_temperature_t temp_init =
     {
-        .integer = 0,
-        .decimal = 0
+        .integer = 20,
+        .decimal = 5
     };
 
     ble_sts_altitude_t alti_init =
     {
-        .integer = 0,
-        .decimal = 0
+        .integer = 800,
+        .decimal = 12
     };
 
     ble_sts_accel_t accel_init =
@@ -173,6 +184,9 @@ static void services_init(void)
         .evt_handler = ble_sts_evt_handler
     };
     err_code = ble_sts_init(&m_sts, &sts_init);
+    
+    //Rocketry Service Init
+    
     APP_ERROR_CHECK(err_code);
 }
 
