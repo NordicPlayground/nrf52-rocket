@@ -14,6 +14,7 @@
 #include "ble_srv_common.h"
 #include "sdk_common.h"
 
+#define BLE_UUID_SRS_POWER_CHAR                    0x0001
 #define BLE_UUID_SRS_IGNITION_CHAR                 0x0002                      /**< The UUID of the altitude Characteristic. */
 #define BLE_UUID_SRS_CAP_VOLT_CHAR                 0x0003                      /**< The UUID of the accel Characteristic. */
 #define BLE_UUID_SRS_CAP_CTRL_CHAR                 0x0004                      /**< The UUID of the accel Characteristic. */
@@ -55,8 +56,15 @@ static void on_write(ble_srs_t * p_srs, ble_evt_t * p_ble_evt)
 {
     ble_gatts_evt_write_t * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
 
-
-    if ( (p_evt_write->handle == p_srs->ignition_handles.cccd_handle) &&
+    if ( (p_evt_write->handle == p_srs->power_handles.value_handle) &&
+         (p_evt_write->len == 1) )
+    {
+        if (p_srs->evt_handler != NULL)
+        {
+            p_srs->evt_handler(p_srs, BLE_SRS_EVT_POWER, p_evt_write->data, p_evt_write->len);
+        }
+    }
+    else if ( (p_evt_write->handle == p_srs->ignition_handles.value_handle) &&
          (p_evt_write->len == 1) )
     {
         if (p_srs->evt_handler != NULL)
@@ -64,7 +72,7 @@ static void on_write(ble_srs_t * p_srs, ble_evt_t * p_ble_evt)
             p_srs->evt_handler(p_srs, BLE_SRS_EVT_IGNITION, p_evt_write->data, p_evt_write->len);
         }
     }
-    else if ( (p_evt_write->handle == p_srs->cap_ctrl_handles.cccd_handle) &&
+    else if ( (p_evt_write->handle == p_srs->cap_ctrl_handles.value_handle) &&
          (p_evt_write->len == 1) )
     {
         if (p_srs->evt_handler != NULL)
@@ -101,6 +109,61 @@ static void on_write(ble_srs_t * p_srs, ble_evt_t * p_ble_evt)
         // Do Nothing. This event is not relevant for this service.
     }
 }
+
+/**@brief Function for adding temperature characteristic.
+ *
+ * @param[in] p_srs       Strato Rocketry Service structure.
+ * @param[in] p_srs_init  Information needed to initialize the service.
+ *
+ * @return NRF_SUCCESS on success, otherwise an error code.
+ */
+static uint32_t power_char_add(ble_srs_t * p_srs, const ble_srs_init_t * p_srs_init)
+{
+    /**@snippet [Adding proprietary characteristic to S132 SoftDevice] */
+    ble_gatts_char_md_t char_md;
+    ble_gatts_attr_t    attr_char_value;
+    ble_uuid_t          ble_uuid;
+    ble_gatts_attr_md_t attr_md;
+
+    memset(&char_md, 0, sizeof(char_md));
+
+    char_md.char_props.read   = 1;
+    char_md.char_props.write  = 1;
+    char_md.p_char_user_desc  = NULL;
+    char_md.p_char_pf         = NULL;
+    char_md.p_user_desc_md    = NULL;
+    char_md.p_cccd_md         = NULL;
+    char_md.p_sccd_md         = NULL;
+
+    ble_uuid.type = p_srs->uuid_type;
+    ble_uuid.uuid = BLE_UUID_SRS_POWER_CHAR;
+
+    memset(&attr_md, 0, sizeof(attr_md));
+
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
+
+    attr_md.vloc    = BLE_GATTS_VLOC_STACK;
+    attr_md.rd_auth = 0;
+    attr_md.wr_auth = 0;
+    attr_md.vlen    = 0;
+
+    memset(&attr_char_value, 0, sizeof(attr_char_value));
+
+    attr_char_value.p_uuid    = &ble_uuid;
+    attr_char_value.p_attr_md = &attr_md;
+    attr_char_value.init_len  = sizeof(ble_srs_power_t);
+    attr_char_value.init_offs = 0;
+    attr_char_value.p_value   = (uint8_t *)&(p_srs_init->power_init);
+    attr_char_value.max_len   = sizeof(ble_srs_power_t);
+
+    return sd_ble_gatts_characteristic_add(p_srs->service_handle,
+                                           &char_md,
+                                           &attr_char_value,
+                                           &p_srs->power_handles);
+    /**@snippet [Adding proprietary characteristic to S132 SoftDevice] */
+}
+
 
 /**@brief Function for adding temperature characteristic.
  *
@@ -146,7 +209,7 @@ static uint32_t ignition_char_add(ble_srs_t * p_srs, const ble_srs_init_t * p_sr
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(ble_srs_ignition_ctrl_t);
     attr_char_value.init_offs = 0;
-    attr_char_value.p_value   = (uint8_t *)p_srs_init->init_ignition;
+    attr_char_value.p_value   = (uint8_t *)&(p_srs_init->ignition_init);
     attr_char_value.max_len   = sizeof(ble_srs_ignition_ctrl_t);
 
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
@@ -262,7 +325,7 @@ static uint32_t cap_ctrl_char_add(ble_srs_t * p_srs, const ble_srs_init_t * p_sr
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(ble_srs_cap_ctrl_t);
     attr_char_value.init_offs = 0;
-    attr_char_value.p_value   = (uint8_t *)p_srs_init->p_init_cap->ctrl;
+    attr_char_value.p_value   = (uint8_t *)&(p_srs_init->p_init_cap->ctrl);
     attr_char_value.max_len   = sizeof(ble_srs_cap_ctrl_t);
 
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
@@ -315,7 +378,7 @@ static uint32_t para_servo_ctrl_char_add(ble_srs_t * p_srs, const ble_srs_init_t
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(para_servo_ctrl_t);
     attr_char_value.init_offs = 0;
-    attr_char_value.p_value   = (uint8_t *)p_srs_init->p_init_para_servo->ctrl;
+    attr_char_value.p_value   = (uint8_t *)&(p_srs_init->p_init_para_servo->ctrl);
     attr_char_value.max_len   = sizeof(para_servo_ctrl_t);
 
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
@@ -430,6 +493,9 @@ uint32_t ble_srs_init(ble_srs_t * p_srs, const ble_srs_init_t * p_srs_init)
                                         &p_srs->service_handle);
     VERIFY_SUCCESS(err_code);
 
+    // Add the altitude Characteristic.
+    err_code = power_char_add(p_srs, p_srs_init);
+    VERIFY_SUCCESS(err_code);
     // Add the altitude Characteristic.
     err_code = ignition_char_add(p_srs, p_srs_init);
     VERIFY_SUCCESS(err_code);

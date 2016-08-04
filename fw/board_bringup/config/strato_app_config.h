@@ -32,5 +32,6 @@
 
 //IGNITION CONFIGS
 #define MINIMUM_IGNITION_VOLTAGE                        (4.8f)
+#define SUPERCAP_SAMPLE_FREQ_MS                         (50)
 
 #endif /*STRATO_APP_CONFIG_H*/

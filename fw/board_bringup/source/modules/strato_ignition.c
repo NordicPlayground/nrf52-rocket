@@ -6,21 +6,22 @@
 #include "nrf_drv_ppi.h"
 #include "nrf_drv_saadc.h"
 #include "strato_app_config.h"
+#include "ble_srs.h"
 
-#define SAMPLES_IN_BUFFER 5
+#define SAMPLES_IN_BUFFER 10
 
-static const nrf_drv_timer_t   m_timer = NRF_DRV_TIMER_INSTANCE(1);
-static nrf_saadc_value_t       m_buffer_pool[2][SAMPLES_IN_BUFFER];
-static nrf_ppi_channel_t       m_ppi_channel;
-static uint32_t                m_adc_evt_counter;
-static uint32_t                m_sample_period;
-static float                   m_current_voltage;
+static const nrf_drv_timer_t       m_timer = NRF_DRV_TIMER_INSTANCE(1);
+static nrf_saadc_value_t           m_buffer_pool[1][SAMPLES_IN_BUFFER];
+static nrf_ppi_channel_t           m_ppi_channel;
+static uint32_t                    m_adc_evt_counter;
+static uint32_t                    m_sample_period;
+static float                       m_current_voltage;
 static ignition_adc_evt_handler_t  m_adc_cb;
 
 
 void timer_handler(nrf_timer_event_t event_type, void* p_context)
 {
-
+    //Not needed
 }
 
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
@@ -34,11 +35,18 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 
         int i;
         SEGGER_RTT_printf(0, "ADC event number: %d\r\n",(int)m_adc_evt_counter);
+
+        uint16_t average_result = 0;
         for (i = 0; i < SAMPLES_IN_BUFFER; i++)
         {
-            // SEGGER_RTT_printf(0, "%d\r\n", p_event->data.done.p_buffer[i]);
-            m_adc_cb(p_event->data.done.p_buffer[i]);
+            average_result = average_result + p_event->data.done.p_buffer[i];
         }
+
+        average_result = average_result/SAMPLES_IN_BUFFER;
+
+        m_current_voltage = ((double)(2*average_result*3))*(0.825)/((1024));
+
+        m_adc_cb(m_current_voltage);
         m_adc_evt_counter++;
     }
 }
@@ -53,16 +61,6 @@ void ignition_init(ignition_init_t * p_params)
     nrf_gpio_cfg_output(IGNITION_CH2);
     nrf_gpio_cfg_output(SC_DUMP);
     nrf_gpio_cfg_input(POWER_GOOD, NRF_GPIO_PIN_NOPULL);
-
-    //Enable 5V Boost Converter
-    nrf_gpio_pin_set(BOOST_5V_ENABLE);
-
-    while(nrf_gpio_pin_read(POWER_GOOD) == 1)
-    {
-        SEGGER_RTT_printf(0, "...");
-    }
-    SEGGER_RTT_printf(0, "Power Good");
-    SEGGER_RTT_printf(0, "\r\n");
 
 
     //Set up ADC Sampling of Supercap voltage
@@ -80,7 +78,7 @@ void ignition_init(ignition_init_t * p_params)
     }
 
 
-    /* setup m_timer for compare event every 500ms */
+    /* setup m_timer for compare event every m_sample_period ms */
     uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, m_sample_period);
     nrf_drv_timer_extended_compare(&m_timer, NRF_TIMER_CC_CHANNEL1, ticks, NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK, false);
     nrf_drv_timer_enable(&m_timer);
@@ -119,9 +117,26 @@ void ignition_init(ignition_init_t * p_params)
 
     err_code = nrf_drv_saadc_buffer_convert(m_buffer_pool[0],SAMPLES_IN_BUFFER);
     APP_ERROR_CHECK(err_code);
+}
 
-    err_code = nrf_drv_saadc_buffer_convert(m_buffer_pool[1],SAMPLES_IN_BUFFER);
-    APP_ERROR_CHECK(err_code);
+void power_5v_enable(bool state)
+{
+    //Enable 5V Boost Converter
+    if (state)
+    {
+        nrf_gpio_pin_set(BOOST_5V_ENABLE);
+
+        while(nrf_gpio_pin_read(POWER_GOOD) == 1)
+        {
+            SEGGER_RTT_printf(0, "...");
+        }
+        SEGGER_RTT_printf(0, "Power Good");
+        SEGGER_RTT_printf(0, "\r\n");
+    }
+    else
+    {
+        nrf_gpio_pin_clear(BOOST_5V_ENABLE);
+    }
 }
 
 ret_code_t ignition_cap_adc_sample_begin(void)

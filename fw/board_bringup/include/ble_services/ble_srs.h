@@ -32,7 +32,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define BLE_UUID_SRS_SERVICE 0x0001                      /**< The UUID of the Strato Rocketry Service. */
+#define BLE_UUID_SRS_SERVICE 0x0000                      /**< The UUID of the Strato Rocketry Service. */
 #define BLE_SRS_MAX_DATA_LEN (GATT_MTU_SIZE_DEFAULT - 3) /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Strato Rocketry service module. */
 
 #ifdef __GNUC__
@@ -64,7 +64,6 @@ typedef PACKED( struct
 typedef enum
 {
     BLE_SRS_CAP_IDLE,
-    BLE_SRS_CAP_SAMPLE,
     BLE_SRS_CAP_DRAIN
 }ble_srs_cap_ctrl_t;
 
@@ -88,6 +87,13 @@ typedef enum
 
 typedef enum
 {
+    BLE_SRS_POWER_OFF,
+    BLE_SRS_POWER_ON,
+}ble_srs_power_t;
+
+typedef enum
+{
+    BLE_SRS_EVT_POWER,
     BLE_SRS_EVT_IGNITION,
     BLE_SRS_EVT_CAP_CTRL,
     BLE_SRS_EVT_CAP_VOLT,
@@ -112,8 +118,9 @@ typedef void (*ble_srs_evt_handler_t) (ble_srs_t        * p_srs,
  */
 typedef struct
 {
+    ble_srs_power_t                 power_init;
     ble_srs_cap_t                 * p_init_cap;
-    ble_srs_ignition_ctrl_t        init_ignition;
+    ble_srs_ignition_ctrl_t         ignition_init;
     ble_srs_parachute_servo_t     * p_init_para_servo;
     ble_srs_evt_handler_t           evt_handler; /**< Event handler to be called for handling received data. */
 } ble_srs_init_t;
@@ -126,6 +133,7 @@ struct ble_srs_s
 {
     uint8_t                  uuid_type;                    /**< UUID type for Strato Rocketry Service Base UUID. */
     uint16_t                 service_handle;               /**< Handle of Strato Rocketry Service (as provided by the S110 SoftDevice). */
+    ble_gatts_char_handles_t power_handles;
     ble_gatts_char_handles_t ignition_handles;             /**< Handles related to the temperature characteristic (as provided by the S132 SoftDevice). */
     ble_gatts_char_handles_t cap_volt_handles;            /**< Handles related to the altitude characteristic (as provided by the S132 SoftDevice). */
     ble_gatts_char_handles_t cap_ctrl_handles;            /**< Handles related to the altitude characteristic (as provided by the S132 SoftDevice). */

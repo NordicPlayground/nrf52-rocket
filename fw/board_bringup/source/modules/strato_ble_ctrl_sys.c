@@ -1,4 +1,4 @@
-#include "strato_ble.h"
+#include "strato_ble_ctrl_sys.h"
 #include "ble_gap.h"
 #include "softdevice_handler.h"
 #include "ble_srv_common.h"
@@ -15,9 +15,22 @@
 #include "ble_sts.h"
 #include "ble_srs.h"
 
+#include "strato_ignition.h"
+
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
 static ble_srs_t                        m_srs;                                      /**< Instance of Strato Telemetry Service. */
+
+//Forward declarations
+static void ble_sts_evt_handler(ble_sts_t        * p_sts,
+                                ble_sts_evt_type_t evt_type,
+                                uint8_t          * p_data,
+                                uint16_t           length);
+
+static void ble_srs_evt_handler(ble_srs_t        * p_srs,
+                                ble_srs_evt_type_t evt_type,
+                                uint8_t          * p_data,
+                                uint16_t           length);
 
 /**@brief Function for handling a Connection Parameters error.
  *
@@ -126,22 +139,6 @@ static void conn_params_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-static void ble_sts_evt_handler(ble_sts_t        * p_sts,
-                                ble_sts_evt_type_t evt_type,
-                                uint8_t          * p_data,
-                                uint16_t           length)
-{
-
-}
-
-static void ble_srs_evt_handler(ble_srs_t        * p_srs,
-                                ble_srs_evt_type_t evt_type,
-                                uint8_t          * p_data,
-                                uint16_t           length)
-{
-
-}
-
 /**@brief Function for initializing services that will be used by the application.
  */
 static void services_init(void)
@@ -213,8 +210,9 @@ static void services_init(void)
 
     ble_srs_init_t srs_init =
     {
+        .power_init = BLE_SRS_POWER_OFF,
         .p_init_cap = &super_cap,
-        .init_ignition = BLE_SRS_IGNITION_OFF,
+        .ignition_init = BLE_SRS_IGNITION_OFF,
         .p_init_para_servo = &para_servo,
         .evt_handler = ble_srs_evt_handler
     };
@@ -260,7 +258,7 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
             break;
 
         case BLE_GAP_EVT_DISCONNECTED:
-
+            advertising_start();
             break;
 
         case BLE_GAP_EVT_SEC_PARAMS_REQUEST:
@@ -296,6 +294,7 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
 {
     on_ble_evt(p_ble_evt);
     ble_sts_on_ble_evt(&m_sts, p_ble_evt);
+    ble_srs_on_ble_evt(&m_srs, p_ble_evt);
     ble_conn_params_on_ble_evt(p_ble_evt);
 }
 
@@ -341,7 +340,83 @@ static void ble_stack_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-void ble_test_advertise(void)
+static void radio_power_amp_init()
+{
+    drv_sky66112_init(CTX, CRX, PA_LNA_ANT1);
+//    drv_sky66112_tx_high_power();
+//    drv_sky66112_rx_lna();
+
+    drv_sky66112_bypass();
+}
+
+static void supercap_voltage_evt_handler( double result )
+{
+    ble_srs_cap_volt_t cap_volt;
+    //RESULT = [V(P) – V(N) ] * GAIN/REFERENCE * 2(RESOLUTION - m)
+
+    //V(P) = result*reference*(1/gain)/2^10
+    //Vsc = 2*V(P)  (voltage divider)
+    cap_volt.integer = (uint8_t)(result);
+    double d_decimal = result - cap_volt.integer;
+    cap_volt.decimal = (uint8_t)(d_decimal*100);
+
+    ret_code_t err_code;
+    err_code = ble_srs_capacitor_voltage_set(&m_srs,&cap_volt);
+    APP_ERROR_CHECK(err_code);
+}
+
+static void ble_sts_evt_handler(ble_sts_t        * p_sts,
+                                ble_sts_evt_type_t evt_type,
+                                uint8_t          * p_data,
+                                uint16_t           length)
+{
+
+}
+
+static void ble_srs_evt_handler(ble_srs_t        * p_srs,
+                                ble_srs_evt_type_t evt_type,
+                                uint8_t          * p_data,
+                                uint16_t           length)
+{
+        switch (evt_type) {
+        case BLE_SRS_EVT_POWER:
+            power_5v_enable((bool)(*p_data));
+            break;
+        case BLE_SRS_EVT_IGNITION:
+            break;
+        case BLE_SRS_EVT_CAP_CTRL:
+            ignition_dump_cap((bool)(*p_data));
+            break;
+        case BLE_SRS_EVT_CAP_VOLT:
+            if (*p_data == 1)
+            {
+                ignition_cap_adc_sample_begin();
+            }
+            else
+            {
+                ignition_cap_adc_sample_end();
+            }
+            break;
+        case BLE_SRS_EVT_SERVO_CTRL:
+            break;
+        case BLE_SRS_EVT_SERVO_CONFIG:
+            break;
+    }
+}
+
+static void strato_rocketry_system_init(void)
+{
+    ignition_init_t ignition_init_params =
+    {
+        .adc_evt_handler = supercap_voltage_evt_handler,
+        .adc_sampling_period_ms = SUPERCAP_SAMPLE_FREQ_MS
+    };
+
+    ignition_init(&ignition_init_params);
+
+}
+
+void strato_ble_ctrl_sys(void)
 {
     ble_stack_init();
     gap_params_init();
@@ -349,14 +424,10 @@ void ble_test_advertise(void)
     advertising_init();
     conn_params_init();
 
-
-
-    drv_sky66112_init(CTX, CRX, PA_LNA_ANT1);
-//    drv_sky66112_tx_high_power();
-//    drv_sky66112_rx_lna();
-
-    drv_sky66112_bypass();
+    strato_rocketry_system_init();
+//    ignition_cap_adc_sample_begin();
 
     // Start execution.
+    radio_power_amp_init();
     advertising_start();
 }

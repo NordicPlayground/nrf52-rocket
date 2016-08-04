@@ -1462,9 +1462,9 @@
               <FilePath>..\source\modules\strato_led.c</FilePath>
             </File>
             <File>
-              <FileName>strato_ble.c</FileName>
+              <FileName>strato_ble_ctrl_sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\modules\strato_ble.c</FilePath>
+              <FilePath>..\source\modules\strato_ble_ctrl_sys.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2984,9 +2984,9 @@
               <FilePath>..\source\modules\strato_led.c</FilePath>
             </File>
             <File>
-              <FileName>strato_ble.c</FileName>
+              <FileName>strato_ble_ctrl_sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\modules\strato_ble.c</FilePath>
+              <FilePath>..\source\modules\strato_ble_ctrl_sys.c</FilePath>
             </File>
           </Files>
         </Group>

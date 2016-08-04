@@ -29,7 +29,7 @@
 #include "strato_app_config.h"
 #include "strato_led.h"
 #include "strato_ignition.h"
-#include "strato_ble.h"
+#include "strato_ble_ctrl_sys.h"
 
 #include "pca20027.h"
 #include "drv_mpu9250.h"
@@ -53,6 +53,7 @@
 void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
 {
     app_error_handler(DEAD_BEEF, line_num, p_file_name);
+    leds_set_rgb(0x00FF0000);
 }
 
 /**@brief Function for the Power Manager.
@@ -61,12 +62,6 @@ static void power_manage(void)
 {
     uint32_t err_code = sd_app_evt_wait();
     APP_ERROR_CHECK(err_code);
-}
-
-static void supercap_voltage_evt_handler( uint16_t result )
-{
-    double vsc = ((double)(result*3))*(0.825)/((1024));
-    APP_ERROR_CHECK(NRF_SUCCESS);
 }
 
 // static void press_evt_handler(drv_pressure_evt_t const * p_evt,
@@ -92,21 +87,10 @@ int main(void)
     err_code = leds_init();
     APP_ERROR_CHECK(err_code);
 
-    err_code = leds_set_rgb(0x0000CCEE);
+    err_code = leds_set_rgb(0x0000FF00);
     APP_ERROR_CHECK(err_code);
 
-
-    ignition_init_t ignition_init_params =
-    {
-        .adc_evt_handler = supercap_voltage_evt_handler,
-        .adc_sampling_period_ms = 500
-    };
-
-   ignition_init(&ignition_init_params);
-
-   ignition_cap_adc_sample_begin();
-
-   ble_test_advertise();
+    strato_ble_ctrl_sys();
 
     // Enter main loop.
 
