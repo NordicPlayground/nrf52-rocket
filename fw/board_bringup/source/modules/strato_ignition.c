@@ -58,6 +58,7 @@ void ignition_init(ignition_init_t * p_params)
     m_adc_cb = p_params->adc_evt_handler;
     //Pin configs
     nrf_gpio_cfg_output(BOOST_5V_ENABLE);
+    nrf_gpio_cfg_output(SERVO_ENABLE);
     nrf_gpio_cfg_output(IGNITION_CH1);
     nrf_gpio_cfg_output(IGNITION_CH2);
     nrf_gpio_cfg_output(SC_DUMP);

@@ -150,7 +150,7 @@
 
 /* PWM */
 
-#define PWM0_ENABLED 0
+#define PWM0_ENABLED 1
 
 #if (PWM0_ENABLED == 1)
 #define PWM0_CONFIG_OUT0_PIN        2

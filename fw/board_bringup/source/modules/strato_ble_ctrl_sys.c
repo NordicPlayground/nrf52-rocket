@@ -15,8 +15,9 @@
 #include "ble_sts.h"
 #include "ble_srs.h"
 #include "strato_led.h"
-
 #include "strato_ignition.h"
+
+#include "drv_servo.h"
 
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
@@ -420,6 +421,13 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
             }
             break;
         case BLE_SRS_EVT_SERVO_CTRL:
+            if (*p_data)
+            {
+
+            }
+            else
+            {
+            }
             break;
         case BLE_SRS_EVT_SERVO_CONFIG:
             break;
@@ -447,9 +455,24 @@ void strato_ble_ctrl_sys(void)
     conn_params_init();
 
     strato_rocketry_system_init();
-//    ignition_cap_adc_sample_begin();
+
+    power_5v_enable(true);
+
+    nrf_gpio_pin_set(SERVO_ENABLE);
+    motor_init();
+
+    motor_values values =
+    {
+        .motor1 = 100,
+        .motor2 = 8333, //1ms
+        .motor3 = 4167, //1.5ms
+        .motor4 = 6250, //2ms
+    };
+
+    motor_values_update(values);
+    // motor_testing();
 
     // Start execution.
-    radio_power_amp_init();
-    advertising_start();
+    // radio_power_amp_init();
+    // advertising_start();
 }

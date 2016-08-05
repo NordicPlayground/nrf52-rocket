@@ -15,7 +15,6 @@
 #define DEVICE_NAME                                     "Strato"
 #define IS_SRVC_CHANGED_CHARACT_PRESENT                 0                                 /**< Include the service changed characteristic. If not enabled, the server's database cannot be changed for the lifetime of the device. */
 
-
 #define APP_ADV_INTERVAL                                64                                          /**< The advertising interval (in units of 0.625 ms; this value corresponds to 40 ms). */
 #define APP_ADV_TIMEOUT_IN_SECONDS                      BLE_GAP_ADV_TIMEOUT_GENERAL_UNLIMITED       /**< The advertising time-out (in units of seconds). When set to 0, we will never time out. */
 
