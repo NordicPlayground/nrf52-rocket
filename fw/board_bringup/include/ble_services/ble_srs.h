@@ -82,7 +82,9 @@ typedef PACKED( struct
 typedef enum
 {
     BLE_SRS_IGNITION_OFF,
-    BLE_SRS_IGNITION_ON,
+    BLE_SRS_IGNITION1_ON,
+    BLE_SRS_IGNITION2_ON,
+    BLE_SRS_IGNITION_BOTH,
 }ble_srs_ignition_ctrl_t;
 
 typedef enum

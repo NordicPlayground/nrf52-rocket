@@ -7,6 +7,7 @@
 #include "nrf_drv_saadc.h"
 #include "strato_app_config.h"
 #include "ble_srs.h"
+#include "strato_led.h"
 
 #define SAMPLES_IN_BUFFER 10
 
@@ -132,10 +133,13 @@ void power_5v_enable(bool state)
         }
         SEGGER_RTT_printf(0, "Power Good");
         SEGGER_RTT_printf(0, "\r\n");
+        leds_set_rgb(leds_current_value_get() | 0xFF0000);
+
     }
     else
     {
         nrf_gpio_pin_clear(BOOST_5V_ENABLE);
+        leds_set_rgb(leds_current_value_get() ^ 0xFF0000);
     }
 }
 

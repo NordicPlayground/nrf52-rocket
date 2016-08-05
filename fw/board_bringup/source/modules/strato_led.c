@@ -4,6 +4,7 @@
 #include "app_timer.h"
 
 static drv_led_lpp_rgb_t m_rgb = DRV_LED_LPP_RGB_INIT();
+static uint32_t m_current_value = 0x00000000;
 
 ret_code_t leds_init()
 {
@@ -24,10 +25,17 @@ ret_code_t leds_init()
 
 ret_code_t leds_set_rgb(uint32_t rgb)
 {
+    m_current_value = rgb;
     return drv_led_rgb_set(&m_rgb, rgb);
 }
 
 ret_code_t leds_off(void)
 {
+    m_current_value = 0;
     return drv_led_rgb_stop_pwm(&m_rgb);
+}
+
+uint32_t leds_current_value_get(void)
+{
+    return m_current_value;
 }

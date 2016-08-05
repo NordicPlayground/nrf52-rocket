@@ -14,6 +14,7 @@
 #include "ble_hci.h"
 #include "ble_sts.h"
 #include "ble_srs.h"
+#include "strato_led.h"
 
 #include "strato_ignition.h"
 
@@ -254,10 +255,13 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
     switch (p_ble_evt->header.evt_id)
     {
         case BLE_GAP_EVT_CONNECTED:
-
+            leds_set_rgb(leds_current_value_get() | 0x0000FF);
             break;
 
         case BLE_GAP_EVT_DISCONNECTED:
+            leds_set_rgb(leds_current_value_get() ^ 0x0000FF);
+            err_code = ignition_cap_adc_sample_end();
+            APP_ERROR_CHECK(err_code);
             advertising_start();
             break;
 
@@ -383,6 +387,24 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
             power_5v_enable((bool)(*p_data));
             break;
         case BLE_SRS_EVT_IGNITION:
+            switch ((ble_srs_ignition_ctrl_t)(*p_data)) {
+                case BLE_SRS_IGNITION_OFF:
+                    ignition_trigger_off(1);
+                    ignition_trigger_off(2);
+                    break;
+                //TODO: check for invalid state which means voltage too low,
+                //then throw some kind of error? or just let mobile side show the user
+                case BLE_SRS_IGNITION1_ON:
+                    ignition_trigger_on(1);
+                    break;
+                case BLE_SRS_IGNITION2_ON:
+                    ignition_trigger_on(2);
+                    break;
+                case BLE_SRS_IGNITION_BOTH:
+                    ignition_trigger_on(1);
+                    ignition_trigger_on(2);
+                    break;
+            }
             break;
         case BLE_SRS_EVT_CAP_CTRL:
             ignition_dump_cap((bool)(*p_data));
