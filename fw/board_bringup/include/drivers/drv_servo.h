@@ -1,5 +1,5 @@
-#ifndef MOTOR_H__
-#define MOTOR_H__
+#ifndef DRV_SERVO_H
+#define DRV_SERVO_H
 
 #define PWM_TOP 16666 // 60Hz
 
@@ -14,4 +14,4 @@ typedef struct {
 void motor_init(void);
 void motor_values_update(motor_values values);
 
-#endif //MOTOR_H__
+#endif //DRV_SERVO_H

@@ -64,6 +64,7 @@ void ignition_init(ignition_init_t * p_params)
     nrf_gpio_cfg_output(SC_DUMP);
     nrf_gpio_cfg_input(POWER_GOOD, NRF_GPIO_PIN_NOPULL);
 
+    nrf_gpio_pin_set(SERVO_ENABLE);
 
     //Set up ADC Sampling of Supercap voltage
     ret_code_t err_code;
@@ -141,6 +142,10 @@ void power_5v_enable(bool state)
     {
         nrf_gpio_pin_clear(BOOST_5V_ENABLE);
         leds_set_rgb(leds_current_value_get() ^ 0xFF0000);
+
+        //Supercap voltage is leaking into the translator
+        nrf_gpio_pin_clear(SERVO_ENABLE);
+
     }
 }
 

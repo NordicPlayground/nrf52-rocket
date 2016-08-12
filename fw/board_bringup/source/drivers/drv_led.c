@@ -36,7 +36,7 @@ ret_code_t drv_led_rgb_init(drv_led_lpp_rgb_t * p_rgb,
     low_power_pwm_config_t * p_incr_config = &(p_rgb_config->red_config);
     for (uint8_t i = 0; i < LED_COMP_COUNT; i++)
     {
-        err_code = low_power_pwm_init(p_incr + i, p_incr_config + i, lp_pwm_timeout_handler);
+        err_code = low_power_pwm_init(p_incr + i, p_incr_config + i, NULL);
         RETURN_IF_ERROR(err_code);
     }
     return NRF_SUCCESS;
@@ -68,7 +68,7 @@ ret_code_t drv_led_rgb_set(drv_led_lpp_rgb_t * p_rgb, uint32_t rgb_val)
         else
         {
             err_code = low_power_pwm_stop(p_incr + i);
-            RETURN_IF_ERROR(err_code);            
+            RETURN_IF_ERROR(err_code);
         }
     }
     return NRF_SUCCESS;

@@ -51,8 +51,8 @@ typedef enum
 
 typedef PACKED( struct
 {
-    int8_t  position_open;   /* -90 to 90 degrees*/
-    int8_t  position_closed;
+    uint8_t  position_open;   /* 0 to 180 degrees*/
+    uint8_t  position_closed;
 }) para_servo_config_t;
 
 typedef PACKED( struct

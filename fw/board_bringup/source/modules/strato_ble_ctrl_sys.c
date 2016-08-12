@@ -16,6 +16,7 @@
 #include "ble_srs.h"
 #include "strato_led.h"
 #include "strato_ignition.h"
+#include "strato_parachute.h"
 
 #include "drv_servo.h"
 
@@ -188,8 +189,8 @@ static void services_init(void)
     //Init Rocketry Service
     para_servo_config_t servo_config =
     {
-        .position_open = 45,
-        .position_closed = -45,
+        .position_open = 90,
+        .position_closed = 0,
     };
 
     ble_srs_parachute_servo_t para_servo =
@@ -347,11 +348,11 @@ static void ble_stack_init(void)
 
 static void radio_power_amp_init()
 {
-    drv_sky66112_init(CTX, CRX, PA_LNA_ANT1);
-//    drv_sky66112_tx_high_power();
-//    drv_sky66112_rx_lna();
+    drv_sky66112_init(CTX, CRX, PA_LNA_ANT2);
+    drv_sky66112_tx_high_power();
+    drv_sky66112_rx_lna();
 
-    drv_sky66112_bypass();
+//    drv_sky66112_bypass();
 }
 
 static void supercap_voltage_evt_handler( double result )
@@ -421,12 +422,13 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
             }
             break;
         case BLE_SRS_EVT_SERVO_CTRL:
-            if (*p_data)
+            if ((para_servo_ctrl_t)(*p_data) == PARA_SERVO_OPEN)
             {
-
+                parachute_hatch_open();
             }
-            else
+            else if ((para_servo_ctrl_t)(*p_data) == PARA_SERVO_CLOSE)
             {
+                parachute_hatch_close();
             }
             break;
         case BLE_SRS_EVT_SERVO_CONFIG:
@@ -443,6 +445,7 @@ static void strato_rocketry_system_init(void)
     };
 
     ignition_init(&ignition_init_params);
+    parachute_init();
 
 }
 
@@ -455,24 +458,7 @@ void strato_ble_ctrl_sys(void)
     conn_params_init();
 
     strato_rocketry_system_init();
-
-    power_5v_enable(true);
-
-    nrf_gpio_pin_set(SERVO_ENABLE);
-    motor_init();
-
-    motor_values values =
-    {
-        .motor1 = 100,
-        .motor2 = 8333, //1ms
-        .motor3 = 4167, //1.5ms
-        .motor4 = 6250, //2ms
-    };
-
-    motor_values_update(values);
-    // motor_testing();
-
     // Start execution.
-    // radio_power_amp_init();
-    // advertising_start();
+    radio_power_amp_init();
+    advertising_start();
 }

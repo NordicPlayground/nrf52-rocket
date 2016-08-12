@@ -436,7 +436,7 @@ static uint32_t para_servo_config_char_add(ble_srs_t * p_srs, const ble_srs_init
     return sd_ble_gatts_characteristic_add(p_srs->service_handle,
                                            &char_md,
                                            &attr_char_value,
-                                           &p_srs->para_servo_ctrl_handles);
+                                           &p_srs->para_servo_config_handles);
 }
 
 void ble_srs_on_ble_evt(ble_srs_t * p_srs, ble_evt_t * p_ble_evt)

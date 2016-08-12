@@ -5,11 +5,11 @@
 
 //TIMER CONFIGS
 #define APP_TIMER_PRESCALER                             0                                 /**< Value of the RTC1 PRESCALER register. 4095 = 125 ms every tick */
-#define APP_TIMER_OP_QUEUE_SIZE                         10                                /**< Size of timer operation queues. */
+#define APP_TIMER_OP_QUEUE_SIZE                         30                                /**< Size of timer operation queues. */
 
 //SCHEDULER CONFIGS
 #define SCHED_MAX_EVENT_DATA_SIZE                       sizeof(app_timer_event_t)
-#define SCHED_QUEUE_SIZE                                10
+#define SCHED_QUEUE_SIZE                                30
 
 //BLE CONFIGS
 #define DEVICE_NAME                                     "Strato"
