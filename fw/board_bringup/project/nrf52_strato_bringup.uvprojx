@@ -1477,9 +1477,9 @@
               <FilePath>..\source\modules\strato_ble_ctrl_sys.c</FilePath>
             </File>
             <File>
-              <FileName>strato_parachute.c</FileName>
+              <FileName>strato_parachute_fins.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\modules\strato_parachute.c</FilePath>
+              <FilePath>..\source\modules\strato_parachute_fins.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3019,9 +3019,9 @@
               <FilePath>..\source\modules\strato_ble_ctrl_sys.c</FilePath>
             </File>
             <File>
-              <FileName>strato_parachute.c</FileName>
+              <FileName>strato_parachute_fins.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\modules\strato_parachute.c</FilePath>
+              <FilePath>..\source\modules\strato_parachute_fins.c</FilePath>
             </File>
           </Files>
         </Group>

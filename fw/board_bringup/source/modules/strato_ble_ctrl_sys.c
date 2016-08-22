@@ -16,7 +16,7 @@
 #include "ble_srs.h"
 #include "strato_led.h"
 #include "strato_ignition.h"
-#include "strato_parachute.h"
+#include "strato_parachute_fins.h"
 
 #include "drv_servo.h"
 
@@ -358,9 +358,9 @@ static void radio_power_amp_init()
 static void supercap_voltage_evt_handler( double result )
 {
     ble_srs_cap_volt_t cap_volt;
-    //RESULT = [V(P) – V(N) ] * GAIN/REFERENCE * 2(RESOLUTION - m)
+    //RESULT = [V(P) – V(N) ] * GAIN/REFERENCE * 2^(RESOLUTION - m)
 
-    //V(P) = result*reference*(1/gain)/2^10
+    //V(P) = result*reference*(1/gain)/(2^10)
     //Vsc = 2*V(P)  (voltage divider)
     cap_volt.integer = (uint8_t)(result);
     double d_decimal = result - cap_volt.integer;
@@ -432,6 +432,8 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
             }
             break;
         case BLE_SRS_EVT_SERVO_CONFIG:
+            para_servo_config_t * p_config = (para_servo_config_t *)(p_data);
+            parachute_end_values_set(p_config->position_open, p_config->position_closed);
             break;
     }
 }
@@ -445,11 +447,11 @@ static void strato_rocketry_system_init(void)
     };
 
     ignition_init(&ignition_init_params);
-    parachute_init();
+    parachute_fins_init();
 
 }
 
-void strato_ble_ctrl_sys(void)
+void strato_ble_ctrl_sys_init(void)
 {
     ble_stack_init();
     gap_params_init();
@@ -461,4 +463,9 @@ void strato_ble_ctrl_sys(void)
     // Start execution.
     radio_power_amp_init();
     advertising_start();
+
+//    power_5v_enable(true);
+//    parachute_hatch_close();
+
+
 }

@@ -86,11 +86,11 @@ void drv_sky66112_ant_select(pa_lna_ant_t ant)
 {
     if (ant == PA_LNA_ANT1)
     {
-        nrf_gpio_pin_clear(ant);
+        nrf_gpio_pin_clear(ANT_SEL);
     }
     else
     {
-        nrf_gpio_pin_set(ant);
+        nrf_gpio_pin_set(ANT_SEL);
     }
 }
 

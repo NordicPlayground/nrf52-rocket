@@ -151,7 +151,7 @@
           <Type>0</Type>
           <LineNumber>114</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>122486</Address>
+          <Address>122506</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -860,8 +860,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\source\modules\strato_parachute.c</PathWithFileName>
-      <FilenameWithoutPath>strato_parachute.c</FilenameWithoutPath>
+      <PathWithFileName>..\source\modules\strato_parachute_fins.c</PathWithFileName>
+      <FilenameWithoutPath>strato_parachute_fins.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

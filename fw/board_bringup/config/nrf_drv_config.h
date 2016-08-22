@@ -167,7 +167,7 @@
 #define PWM0_INSTANCE_INDEX 0
 #endif
 
-#define PWM1_ENABLED 0
+#define PWM1_ENABLED 1
 
 #if (PWM1_ENABLED == 1)
 #define PWM1_CONFIG_OUT0_PIN        2

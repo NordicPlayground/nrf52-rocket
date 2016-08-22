@@ -19,7 +19,7 @@
 #define BLE_UUID_SRS_CAP_VOLT_CHAR                 0x0003                      /**< The UUID of the accel Characteristic. */
 #define BLE_UUID_SRS_CAP_CTRL_CHAR                 0x0004                      /**< The UUID of the accel Characteristic. */
 #define BLE_UUID_SRS_PARA_SERVO_CTRL_CHAR          0x0005                      /**< The UUID of the accel Characteristic. */
-#define BLE_UUID_SRS_PARA_CONFIG_CTRL_CHAR         0x0006                      /**< The UUID of the accel Characteristic. */
+#define BLE_UUID_SRS_PARA_SERVO_CONFIG_CHAR         0x0006                      /**< The UUID of the accel Characteristic. */
 
 
 // 4998xxxx-b822-42d3-9ab5-c4913f1b5caa
@@ -412,7 +412,7 @@ static uint32_t para_servo_config_char_add(ble_srs_t * p_srs, const ble_srs_init
     char_md.p_sccd_md                = NULL;
 
     ble_uuid.type = p_srs->uuid_type;
-    ble_uuid.uuid = BLE_UUID_SRS_PARA_CONFIG_CTRL_CHAR;
+    ble_uuid.uuid = BLE_UUID_SRS_PARA_SERVO_CONFIG_CHAR;
 
     memset(&attr_md, 0, sizeof(attr_md));
 

@@ -90,7 +90,7 @@ int main(void)
     err_code = leds_set_rgb(0x0000FF00);
     APP_ERROR_CHECK(err_code);
 
-    strato_ble_ctrl_sys();
+    strato_ble_ctrl_sys_init();
 
     // Enter main loop.
 

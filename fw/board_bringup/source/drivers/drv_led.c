@@ -18,10 +18,10 @@
 #define RETURN_IF_ERROR(x) if(x != NRF_SUCCESS) return x;
 #define LED_COMP_COUNT     3
 
-static void lp_pwm_timeout_handler(void * context)
-{
-    //Not Required.
-}
+//static void lp_pwm_timeout_handler(void * context)
+//{
+//    //Not Required.
+//}
 
 ret_code_t drv_led_rgb_init(drv_led_lpp_rgb_t * p_rgb,
                             drv_led_lpp_rgb_config_t * p_rgb_config)
