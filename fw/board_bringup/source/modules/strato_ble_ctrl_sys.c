@@ -214,9 +214,9 @@ static void services_init(void)
     ble_srs_init_t srs_init =
     {
         .power_init = BLE_SRS_POWER_OFF,
-        .p_init_cap = &super_cap,
+        .p_cap_init = &super_cap,
         .ignition_init = BLE_SRS_IGNITION_OFF,
-        .p_init_para_servo = &para_servo,
+        .p_para_servo_init = &para_servo,
         .evt_handler = ble_srs_evt_handler
     };
 
@@ -348,7 +348,7 @@ static void ble_stack_init(void)
     //Start up HFCLK crystal to reduce servo jitter
     err_code = sd_clock_hfclk_request();
     APP_ERROR_CHECK(err_code);
- 
+
 }
 
 static void radio_power_amp_init()
@@ -363,11 +363,11 @@ static void radio_power_amp_init()
 static void supercap_voltage_evt_handler( double result )
 {
     ble_srs_cap_volt_t cap_volt;
-    
+
     //RESULT = [V(P) – V(N) ] * GAIN/REFERENCE * 2^(RESOLUTION - m)
     //V(P) = result*reference*(1/gain)/(2^10)
     //Vsc = 2*V(P)  (voltage divider)
-    
+
     cap_volt.integer = (uint8_t)(result);
     double d_decimal = result - cap_volt.integer;
     cap_volt.decimal = (uint8_t)(d_decimal*100);
@@ -427,7 +427,7 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
                 ignition_cap_adc_sample_end();
             }
             break;
-        case BLE_SRS_EVT_SERVO_CTRL:
+        case BLE_SRS_EVT_PSERVO_CTRL:
             if ((para_servo_ctrl_t)(*p_data) == PARA_SERVO_OPEN)
             {
                 parachute_hatch_open();
@@ -437,10 +437,18 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
                 parachute_hatch_close();
             }
             break;
-        case BLE_SRS_EVT_SERVO_CONFIG:
+        case BLE_SRS_EVT_PSERVO_CONFIG:
+        {
             para_servo_config_t * p_config = (para_servo_config_t *)(p_data);
             parachute_end_values_set(p_config->position_open, p_config->position_closed);
             break;
+        }
+        case BLE_SRS_EVT_FIN_CTRL:
+        {
+            ble_srs_fin_ctrl_t * p_fin_ctrl = (ble_srs_fin_ctrl_t *)(p_data);
+            fin_values_set((fin_degrees_t *)p_fin_ctrl);
+            break;
+        }
     }
 }
 

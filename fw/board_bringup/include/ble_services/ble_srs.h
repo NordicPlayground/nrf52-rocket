@@ -93,14 +93,23 @@ typedef enum
     BLE_SRS_POWER_ON,
 }ble_srs_power_t;
 
+typedef PACKED( struct
+{
+    uint8_t  fin1;
+    uint8_t  fin2;
+    uint8_t  fin3;
+    uint8_t  fin4;
+}) ble_srs_fin_ctrl_t;
+
 typedef enum
 {
     BLE_SRS_EVT_POWER,
     BLE_SRS_EVT_IGNITION,
     BLE_SRS_EVT_CAP_CTRL,
     BLE_SRS_EVT_CAP_VOLT,
-    BLE_SRS_EVT_SERVO_CTRL,
-    BLE_SRS_EVT_SERVO_CONFIG,
+    BLE_SRS_EVT_PSERVO_CTRL,
+    BLE_SRS_EVT_PSERVO_CONFIG,
+    BLE_SRS_EVT_FIN_CTRL,
 }ble_srs_evt_type_t;
 
 /* Forward declaration of the ble_srs_t type. */
@@ -121,9 +130,10 @@ typedef void (*ble_srs_evt_handler_t) (ble_srs_t        * p_srs,
 typedef struct
 {
     ble_srs_power_t                 power_init;
-    ble_srs_cap_t                 * p_init_cap;
+    ble_srs_cap_t                 * p_cap_init;
     ble_srs_ignition_ctrl_t         ignition_init;
-    ble_srs_parachute_servo_t     * p_init_para_servo;
+    ble_srs_parachute_servo_t     * p_para_servo_init;
+    ble_srs_fin_ctrl_t            * p_fin_init;
     ble_srs_evt_handler_t           evt_handler; /**< Event handler to be called for handling received data. */
 } ble_srs_init_t;
 
@@ -134,14 +144,15 @@ typedef struct
 struct ble_srs_s
 {
     uint8_t                  uuid_type;                    /**< UUID type for Strato Rocketry Service Base UUID. */
-    uint16_t                 service_handle;               /**< Handle of Strato Rocketry Service (as provided by the S110 SoftDevice). */
+    uint16_t                 service_handle;               /**< Handle of Strato Rocketry Service. */
     ble_gatts_char_handles_t power_handles;
-    ble_gatts_char_handles_t ignition_handles;             /**< Handles related to the temperature characteristic (as provided by the S132 SoftDevice). */
-    ble_gatts_char_handles_t cap_volt_handles;            /**< Handles related to the altitude characteristic (as provided by the S132 SoftDevice). */
-    ble_gatts_char_handles_t cap_ctrl_handles;            /**< Handles related to the altitude characteristic (as provided by the S132 SoftDevice). */
-    ble_gatts_char_handles_t para_servo_ctrl_handles;     /**< Handles related to the config characteristic (as provided by the S132 SoftDevice). */
-    ble_gatts_char_handles_t para_servo_config_handles;     /**< Handles related to the config characteristic (as provided by the S132 SoftDevice). */
-    uint16_t                 conn_handle;                  /**< Handle of the current connection (as provided by the S110 SoftDevice). BLE_CONN_HANDLE_INVALID if not in a connection. */
+    ble_gatts_char_handles_t ignition_handles;
+    ble_gatts_char_handles_t cap_volt_handles;
+    ble_gatts_char_handles_t cap_ctrl_handles;
+    ble_gatts_char_handles_t para_servo_ctrl_handles;
+    ble_gatts_char_handles_t para_servo_config_handles;
+    ble_gatts_char_handles_t fin_ctrl_handles;
+    uint16_t                 conn_handle;                  /**< Handle of the current connection (as provided by the S132 SoftDevice). BLE_CONN_HANDLE_INVALID if not in a connection. */
     ble_srs_evt_handler_t    evt_handler;                  /**< Event handler to be called for handling received data. */
 };
 

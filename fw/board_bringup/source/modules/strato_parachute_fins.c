@@ -38,11 +38,18 @@ static float servo_degrees_to_pwm_val( uint8_t servo_degrees )
     //Pulse widths
     //180 degrees = 0.54 ms
     //0 degrees = 2.4 ms
+    if (servo_degrees <= 180)
+    {
+        float servo_min = 1000000*0.00054*(65535/((float)PWM_TOP));
+        float servo_max = 1000000*0.0024*(65535/((float)PWM_TOP));
 
-    float servo_min = 1000000*0.00054*(65535/((float)PWM_TOP));
-    float servo_max = 1000000*0.0024*(65535/((float)PWM_TOP));
+        return ((float)(servo_degrees)/(180.0f))*(servo_max-servo_min) + servo_min;
+    }
 
-    return ((float)(servo_degrees)/(180.0f))*(servo_max-servo_min) + servo_min;
+    else
+    {
+        return 0;
+    }
 }
 
 void parachute_hatch_open(void)
