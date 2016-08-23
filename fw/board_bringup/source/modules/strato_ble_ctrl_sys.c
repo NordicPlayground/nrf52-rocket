@@ -344,6 +344,11 @@ static void ble_stack_init(void)
     // Subscribe for BLE events.
     err_code = softdevice_ble_evt_handler_set(ble_evt_dispatch);
     APP_ERROR_CHECK(err_code);
+
+    //Start up HFCLK crystal to reduce servo jitter
+    err_code = sd_clock_hfclk_request();
+    APP_ERROR_CHECK(err_code);
+ 
 }
 
 static void radio_power_amp_init()
@@ -358,10 +363,11 @@ static void radio_power_amp_init()
 static void supercap_voltage_evt_handler( double result )
 {
     ble_srs_cap_volt_t cap_volt;
+    
     //RESULT = [V(P) – V(N) ] * GAIN/REFERENCE * 2^(RESOLUTION - m)
-
     //V(P) = result*reference*(1/gain)/(2^10)
     //Vsc = 2*V(P)  (voltage divider)
+    
     cap_volt.integer = (uint8_t)(result);
     double d_decimal = result - cap_volt.integer;
     cap_volt.decimal = (uint8_t)(d_decimal*100);

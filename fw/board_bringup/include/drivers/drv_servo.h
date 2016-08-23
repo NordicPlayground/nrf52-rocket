@@ -2,7 +2,7 @@
 #define DRV_SERVO_H
 
 
-#define PWM_TOP 20200
+#define PWM_TOP 20000
 //BASE CLOCK FREQ/DESIRED FREQUENCY = PWM_TOP
 
 #include <stdint.h>
