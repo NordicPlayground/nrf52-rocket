@@ -40,4 +40,6 @@
 
 //PARACHUTE CONFIGS
 #define FAILSAFE_TIMER_DELAY_MS                         (5000)
+#define CLOSED_DEGREE                                   (51)
+#define OPEN_DEGREE                                     (CLOSED_DEGREE+86)
 #endif /*STRATO_APP_CONFIG_H*/

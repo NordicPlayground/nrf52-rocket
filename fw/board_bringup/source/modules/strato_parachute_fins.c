@@ -1,11 +1,12 @@
 #include "strato_parachute_fins.h"
 #include "drv_servo.h"
 #include "app_error.h"
+#include "strato_app_config.h"
 
 
 
-uint8_t m_deg_open = 90; //in degrees for servo position
-uint8_t m_deg_closed = 0;
+uint8_t m_deg_open = OPEN_DEGREE; //in degrees for servo position
+uint8_t m_deg_closed = CLOSED_DEGREE;
 
 
 //PWM values

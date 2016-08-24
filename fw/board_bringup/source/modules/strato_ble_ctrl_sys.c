@@ -197,8 +197,8 @@ static void services_init(void)
     //Init Rocketry Service
     para_servo_config_t servo_config =
     {
-        .position_open = 90,
-        .position_closed = 0,
+        .position_open = OPEN_DEGREE,
+        .position_closed = CLOSED_DEGREE,
         .failsafe_timer_delay = m_failsafe_parachute_timer_delay,
     };
 
