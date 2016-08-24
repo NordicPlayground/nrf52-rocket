@@ -58,22 +58,18 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
 
 /**@brief Function for the Power Manager.
  */
+#define FPU_EXCEPTION_MASK 0x0000009F
 static void power_manage(void)
 {
+    //Fix FPU stuck in raised flag state
+    __set_FPSCR(__get_FPSCR()  & ~(FPU_EXCEPTION_MASK));
+    (void) __get_FPSCR();
+    NVIC_ClearPendingIRQ(FPU_IRQn);
+
     uint32_t err_code = sd_app_evt_wait();
     APP_ERROR_CHECK(err_code);
 }
 
-// static void press_evt_handler(drv_pressure_evt_t const * p_evt,
-//                               void *                     p_context)
-// {
-//
-// }
-//
-// static void humid_temp_evt_handler(drv_humid_temp_evt_t const * p_event)
-// {
-//     SEGGER_RTT_printf(0,"Humidity: %d", drv_humid_temp_humidity_get());
-// }
 
 /**@brief Function for application main entry.
  */
@@ -95,26 +91,12 @@ int main(void)
     // Enter main loop.
 
 
-//     drv_pressure_init_t press_init;
-//     static const  nrf_drv_twi_t m_twi_sensors = NRF_DRV_TWI_INSTANCE(0);
-//     static const nrf_drv_twi_config_t m_twi_config =
-//     {
-//         .scl = TWI_SCL_PIN_NUMBER,
-//         .sda = TWI_SDA_PIN_NUMBER,
-//         .frequency = NRF_TWI_FREQ_100K,
-//         .interrupt_priority = APP_IRQ_PRIORITY_LOW
-//     };
-//
-//     press_init.p_twi_instance = &m_twi_sensors;
-//     press_init.pressure_evt_handler = press_evt_handler;
-//     press_init.mode = DRV_PRESSURE_MODE_ALTIMETER;
-//     drv_pressure_init(&press_init);
+
 //
 // //    drv_mpu9250_init_t motion_init;
 // //    motion_init.p_twi_instance = &m_twi_sensors;
 // //    motion_init.p_twi_cfg = &m_twi_config;
 // //    drv_mpu9250_init(&motion_init);
-//
 // //    uint8_t who_am_i = 0;
 // //    drv_mpu9250_read(0x68,0x75,1,&who_am_i);
 // //    SEGGER_RTT_printf(0,"who am i: %d \r\n", who_am_i);
@@ -134,6 +116,7 @@ int main(void)
 
     for (;;)
     {
+       app_sched_execute();
        power_manage();
     }
 }

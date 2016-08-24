@@ -9,7 +9,7 @@
 
 //SCHEDULER CONFIGS
 #define SCHED_MAX_EVENT_DATA_SIZE                       sizeof(app_timer_event_t)
-#define SCHED_QUEUE_SIZE                                30
+#define SCHED_QUEUE_SIZE                                100
 
 //BLE CONFIGS
 #define DEVICE_NAME                                     "Strato"
@@ -31,6 +31,10 @@
 
 //IGNITION CONFIGS
 #define MINIMUM_IGNITION_VOLTAGE                        (4.8f)
-#define SUPERCAP_SAMPLE_FREQ_MS                         (50)
+#define SUPERCAP_SAMPLE_PERIOD_MS                       (200)
+
+//SENSOR DATA CONFIGS
+#define ALTITUDE_SAMPLE_PERIOD_MS                       (50)
+#define ACCEL_SAMPLE_PERIOD_MS                          (50)
 
 #endif /*STRATO_APP_CONFIG_H*/

@@ -36,7 +36,7 @@ static const nrf_drv_twi_config_t twi_config =
 {
     .scl                = TWI_SCL_PIN_NUMBER,
     .sda                = TWI_SDA_PIN_NUMBER,
-    .frequency          = NRF_TWI_FREQ_100K,
+    .frequency          = NRF_TWI_FREQ_400K,
     .interrupt_priority = APP_IRQ_PRIORITY_LOW
 };
 
@@ -258,7 +258,7 @@ uint32_t drv_pressure_active_mode_set(drv_pressure_mode_t mode)
  * @retval NRF_ERROR_BUSY          If the TWI drivers are busy
  */
 
-static uint32_t over_sampling_rate_set(uint8_t osr)
+uint32_t drv_pressure_oversampling_rate_set(uint8_t osr)
 {
     uint32_t err_code;
     uint8_t ctrl_reg1;
@@ -361,7 +361,7 @@ uint32_t mpl3115a2_data_read(drv_mp3115a2_data_t * p_data)
     drv_pressure_evt_t press_event;
     drv_pressure_mode_t mode = m_drv_pressure.mode;
 
-    DEBUG_PRINTF(0, "mpl3115a2_data_read:\r\n");
+    // DEBUG_PRINTF(0, "mpl3115a2_data_read:\r\n");
 
     err_code = reg_read(MPL3115A2_OUT_P_MSB, &p_data->pressure.msb);
     RETURN_IF_ERROR(err_code);
@@ -420,7 +420,7 @@ static uint32_t mpl3115a2_int_configure(void)
     RETURN_IF_ERROR(err_code);
 
     /* Max over sampliong rate for minimum noise*/
-    err_code = over_sampling_rate_set(7);
+    err_code = drv_pressure_oversampling_rate_set(0);
     RETURN_IF_ERROR(err_code);
 
     err_code = drv_pressure_data_flag_enable();
@@ -444,8 +444,16 @@ float drv_pressure_altitude_get(void)
   // fractional values, so you must cast the calulation in (float),
   // shift the value over 4 spots to the right and divide by 16 (since
   // there are 16 values in 4-bits).
-  float tempcsb = (m_data.pressure.lsb >> 4) / 16.0f;
-  float altitude = (float)( (m_data.pressure.msb << 8) | m_data.pressure.csb) + tempcsb;
+
+  // float tempcsb = (m_data.pressure.lsb >> 4) / 16.0f;
+  // float altitude = (float)( (m_data.pressure.msb << 8) | m_data.pressure.csb) + tempcsb;
+
+  float altitude = (float)
+                  ((((uint32_t)(m_data.pressure.msb) << 24)
+                  |
+                  ((uint32_t)(m_data.pressure.csb) << 16)
+                  |
+                  ((uint32_t)(m_data.pressure.lsb) << 8)))/65536;
 
   return altitude;
 }
@@ -486,6 +494,38 @@ uint32_t drv_pressure_mode_set(drv_pressure_mode_t mode)
     return NRF_SUCCESS;
 }
 
+uint32_t drv_pressure_enable(void)
+{
+    uint32_t err_code;
+
+    nrf_drv_gpiote_in_config_t gpiote_in_config;
+    gpiote_in_config.is_watcher  = false;
+    gpiote_in_config.hi_accuracy = false;
+    gpiote_in_config.pull        = NRF_GPIO_PIN_PULLUP;
+    gpiote_in_config.sense       = NRF_GPIOTE_POLARITY_HITOLO;
+    err_code = nrf_drv_gpiote_in_init(MPL_INT2, &gpiote_in_config, gpiote_evt_handler);
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_gpiote_in_event_enable(MPL_INT2, true);
+
+    /* Configure the sensors to set up interupts for when data is ready */
+    err_code = mpl3115a2_int_configure();
+    APP_ERROR_CHECK(err_code);
+
+    return NRF_SUCCESS;
+}
+
+uint32_t drv_pressure_disable(void)
+{
+
+    DEBUG_PRINTF(0, "drv_pressure_disable:\r\n");
+
+    nrf_drv_gpiote_in_event_disable(MPL_INT2);
+
+    nrf_drv_gpiote_in_uninit(MPL_INT2);
+
+    return NRF_SUCCESS;
+}
 
 uint32_t drv_pressure_init(drv_pressure_init_t * p_params)
 {
@@ -507,20 +547,5 @@ uint32_t drv_pressure_init(drv_pressure_init_t * p_params)
         err_code = nrf_drv_gpiote_init();
         RETURN_IF_ERROR(err_code);
     }
-
-    nrf_drv_gpiote_in_config_t gpiote_in_config;
-    gpiote_in_config.is_watcher  = false;
-    gpiote_in_config.hi_accuracy = false;
-    gpiote_in_config.pull        = NRF_GPIO_PIN_PULLUP;
-    gpiote_in_config.sense       = NRF_GPIOTE_POLARITY_HITOLO;
-    err_code = nrf_drv_gpiote_in_init(MPL_INT2, &gpiote_in_config, gpiote_evt_handler);
-    RETURN_IF_ERROR(err_code);
-
-    nrf_drv_gpiote_in_event_enable(MPL_INT2, true);
-
-    /* Configure the sensors to set up interupts for when data is ready */
-    err_code = mpl3115a2_int_configure();
-    RETURN_IF_ERROR(err_code);
-
     return NRF_SUCCESS;
 }

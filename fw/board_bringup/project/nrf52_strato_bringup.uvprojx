@@ -178,7 +178,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>Segger\JL2CM3.dll</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -388,7 +388,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>BLE_STACK_SUPPORT_REQD BOARD_PCA10040 NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_UART=1 NRF52 SOFTDEVICE_PRESENT SWI_DISABLE0</Define>
+              <Define>BLE_STACK_SUPPORT_REQD BOARD_PCA10040 NRF52_PAN_12 NRF52_PAN_15 NRF52_PAN_20 NRF52_PAN_30 NRF52_PAN_31 NRF52_PAN_36 NRF52_PAN_51 NRF52_PAN_53 NRF52_PAN_54 NRF52_PAN_55 NRF52_PAN_58 NRF52_PAN_62 NRF52_PAN_63 NRF52_PAN_64 CONFIG_GPIO_AS_PINRESET S132 NRF_LOG_USES_RTT=1 NRF52 SOFTDEVICE_PRESENT SWI_DISABLE0</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -1480,6 +1480,11 @@
               <FileName>strato_parachute_fins.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\modules\strato_parachute_fins.c</FilePath>
+            </File>
+            <File>
+              <FileName>strato_sensors.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_sensors.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3022,6 +3027,11 @@
               <FileName>strato_parachute_fins.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\modules\strato_parachute_fins.c</FilePath>
+            </File>
+            <File>
+              <FileName>strato_sensors.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\modules\strato_sensors.c</FilePath>
             </File>
           </Files>
         </Group>

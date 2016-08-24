@@ -17,8 +17,10 @@
 #include "strato_led.h"
 #include "strato_ignition.h"
 #include "strato_parachute_fins.h"
-
+#include "strato_sensors.h"
 #include "drv_servo.h"
+#include "SEGGER_RTT.h"
+#include "nrf_delay.h"
 
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
@@ -170,8 +172,8 @@ static void services_init(void)
     ble_sts_config_t config_init =
     {
         .temperature_interval_ms = 500,
-        .altitude_interval_ms = 500,
-        .accel_interval_ms = 500,
+        .altitude_interval_ms = ALTITUDE_SAMPLE_PERIOD_MS,
+        .accel_interval_ms = ACCEL_SAMPLE_PERIOD_MS,
         .pressure_mode = STS_PRESSURE_MODE_ALTIMETER,
     };
 
@@ -452,17 +454,42 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
     }
 }
 
+void altitude_data_evt_handler(float altitude)
+{
+
+    ret_code_t err_code;
+
+    int32_t integer = (int32_t)(altitude);
+    float d_decimal = altitude - integer;
+    uint8_t decimal = (uint8_t)(d_decimal*100);
+    SEGGER_RTT_printf(0, "Altitude: %d.%d \r\n",integer,decimal);
+
+    //err_code = ble_sts_altitude_set(ble_sts_t * p_sts, ble_sts_altitude_t * p_data);
+}
+
+void accel_data_evt_handler(int16_t x, int16_t y, int16_t z)
+{
+
+}
+
 static void strato_rocketry_system_init(void)
 {
     ignition_init_t ignition_init_params =
     {
         .adc_evt_handler = supercap_voltage_evt_handler,
-        .adc_sampling_period_ms = SUPERCAP_SAMPLE_FREQ_MS
+        .adc_sampling_period_ms = SUPERCAP_SAMPLE_PERIOD_MS
     };
 
     ignition_init(&ignition_init_params);
     parachute_fins_init();
 
+    strato_sensors_init(altitude_data_evt_handler, accel_data_evt_handler);
+
+    strato_altitude_gnd_zero();
+    
+    nrf_delay_ms(600); // wait for gnd zero to complete before renabling altitude sampling
+
+    strato_altitude_enable(20);
 }
 
 void strato_ble_ctrl_sys_init(void)
@@ -474,12 +501,11 @@ void strato_ble_ctrl_sys_init(void)
     conn_params_init();
 
     strato_rocketry_system_init();
-    // Start execution.
     radio_power_amp_init();
+
+    // Start execution.
     advertising_start();
 
-//    power_5v_enable(true);
-//    parachute_hatch_close();
 
 
 }

@@ -45,6 +45,9 @@ typedef struct
  */
 uint32_t drv_pressure_init(drv_pressure_init_t * p_params);
 
+uint32_t drv_pressure_enable(void);
+
+uint32_t drv_pressure_disable(void);
 /**
 * @brief Function for putting the sensor into altimeter or barometer mode and into
 *        active mode
@@ -103,6 +106,17 @@ uint32_t drv_pressure_mode_set(drv_pressure_mode_t mode);
  */
 
 uint32_t drv_pressure_time_step_set(uint8_t time_step);
+
+/**
+ * @brief Function for configuring over sampling rate (internal averaging and noise reduction)
+ *
+ * @param[in] osr                  2^(osr) of oversampling
+ *
+ * @retval NRF_SUCCESS             If configuration was successful.
+ * @retval NRF_ERROR_BUSY          If the TWI drivers are busy
+ */
+
+uint32_t drv_pressure_oversampling_rate_set(uint8_t osr);
 
 /**
  * @brief Function for immediately taking one sensor measurement

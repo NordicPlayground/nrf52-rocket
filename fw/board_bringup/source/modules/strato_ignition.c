@@ -156,6 +156,7 @@ ret_code_t ignition_cap_adc_sample_begin(void)
 
 ret_code_t ignition_cap_adc_sample_end(void)
 {
+    nrf_drv_timer_disable(&m_timer);
     return nrf_drv_ppi_channel_disable(m_ppi_channel);
 }
 
