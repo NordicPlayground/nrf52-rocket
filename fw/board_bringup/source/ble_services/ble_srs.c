@@ -98,7 +98,7 @@ static void on_write(ble_srs_t * p_srs, ble_evt_t * p_ble_evt)
         }
     }
     else if ( (p_evt_write->handle == p_srs->para_servo_config_handles.value_handle) &&
-              (p_evt_write->len == 2) )
+              (p_evt_write->len == sizeof(para_servo_config_t)) )
     {
         if (p_srs->evt_handler != NULL)
         {

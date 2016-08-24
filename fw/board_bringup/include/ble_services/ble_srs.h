@@ -53,6 +53,7 @@ typedef PACKED( struct
 {
     uint8_t  position_open;   /* 0 to 180 degrees*/
     uint8_t  position_closed;
+    uint16_t failsafe_timer_delay;  /* in ms*/
 }) para_servo_config_t;
 
 typedef PACKED( struct

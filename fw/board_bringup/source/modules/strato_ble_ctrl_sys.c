@@ -28,7 +28,7 @@ static ble_sts_t                        m_sts;                                  
 static ble_srs_t                        m_srs;                                      /**< Instance of Strato Telemetry Service. */
 
 APP_TIMER_DEF(m_failsafe_parachute_timer_id);
-static uint16_t m_failsafe_parachute_timer_delay = 5000;
+static uint16_t m_failsafe_parachute_timer_delay = FAILSAFE_TIMER_DELAY_MS;
 
 //Forward declarations
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
@@ -164,7 +164,8 @@ static void services_init(void)
     {
         .current = 0,
         .max = 0,
-        .vertical_velocity = 0
+        .vertical_velocity = 0,
+        .max_vertical_velocity = 0,
     };
 
     ble_sts_accel_t accel_init =
@@ -198,6 +199,7 @@ static void services_init(void)
     {
         .position_open = 90,
         .position_closed = 0,
+        .failsafe_timer_delay = m_failsafe_parachute_timer_delay,
     };
 
     ble_srs_parachute_servo_t para_servo =
@@ -483,6 +485,7 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
         {
             para_servo_config_t * p_config = (para_servo_config_t *)(p_data);
             parachute_end_values_set(p_config->position_open, p_config->position_closed);
+            m_failsafe_parachute_timer_delay = p_config->failsafe_timer_delay;
             break;
         }
         case BLE_SRS_EVT_FIN_CTRL:
@@ -502,7 +505,10 @@ void altitude_data_evt_handler(strato_altitude_data_t * p_data)
     SEGGER_RTT_printf(0, "Max Altitude: %d \r\n",p_data->max);
     SEGGER_RTT_printf(0, "Vertical Velocity: %d \r\n",p_data->vertical_velocity);
     err_code = ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
-    APP_ERROR_CHECK(err_code);
+    if (err_code != NRF_ERROR_INVALID_STATE)
+    {
+        APP_ERROR_CHECK(err_code);
+    }
 }
 
 void accel_data_evt_handler(int16_t x, int16_t y, int16_t z)
@@ -537,7 +543,7 @@ static void strato_rocketry_system_init(void)
 
     ret_code_t err_code;
     err_code = app_timer_create(&m_failsafe_parachute_timer_id, APP_TIMER_MODE_SINGLE_SHOT, parachute_timeout_handler);
-    
+
     APP_ERROR_CHECK(err_code);
 }
 

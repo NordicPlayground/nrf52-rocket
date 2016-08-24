@@ -38,4 +38,6 @@
 #define ALTITUDE_SAMPLE_PERIOD_MS                       (520)
 #define ACCEL_SAMPLE_PERIOD_MS                          (50)
 
+//PARACHUTE CONFIGS
+#define FAILSAFE_TIMER_DELAY_MS                         (5000)
 #endif /*STRATO_APP_CONFIG_H*/
