@@ -35,7 +35,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
         APP_ERROR_CHECK(err_code);
 
         int i;
-        SEGGER_RTT_printf(0, "ADC event number: %d\r\n",(int)m_adc_evt_counter);
+        //SEGGER_RTT_printf(0, "ADC event number: %d\r\n",(int)m_adc_evt_counter);
 
         uint16_t average_result = 0;
         for (i = 0; i < SAMPLES_IN_BUFFER; i++)
@@ -145,7 +145,6 @@ void power_5v_enable(bool state)
 
         //Supercap voltage is leaking into the translator
         nrf_gpio_pin_clear(SERVO_ENABLE);
-
     }
 }
 

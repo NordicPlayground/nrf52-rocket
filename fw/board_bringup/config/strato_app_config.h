@@ -34,7 +34,8 @@
 #define SUPERCAP_SAMPLE_PERIOD_MS                       (200)
 
 //SENSOR DATA CONFIGS
-#define ALTITUDE_SAMPLE_PERIOD_MS                       (50)
+#define TEMP_SAMPLE_PERIOD_MS                           (50)
+#define ALTITUDE_SAMPLE_PERIOD_MS                       (520)
 #define ACCEL_SAMPLE_PERIOD_MS                          (50)
 
 #endif /*STRATO_APP_CONFIG_H*/

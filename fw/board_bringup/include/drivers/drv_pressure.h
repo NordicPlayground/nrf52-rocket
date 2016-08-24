@@ -151,6 +151,9 @@ uint32_t mpl3115a2_data_read(drv_mp3115a2_data_t * p_data);
   */
 float drv_pressure_altitude_get(void);
 
+int16_t drv_pressure_altitude_int_get(void);
+
+
 /**
  * @brief Function for getting the pressure data.
  *

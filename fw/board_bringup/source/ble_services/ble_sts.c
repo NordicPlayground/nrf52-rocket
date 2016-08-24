@@ -106,7 +106,7 @@ static void on_write(ble_sts_t * p_sts, ble_evt_t * p_ble_evt)
         }
     }
     else if ( (p_evt_write->handle == p_sts->config_handles.value_handle) &&
-              (p_sts->evt_handler != NULL) )
+              (p_sts->evt_handler != NULL) && (p_evt_write->len == sizeof(ble_sts_config_t)) )
     {
         p_sts->evt_handler(p_sts, BLE_STS_EVT_CONFIG_RECEIVED, p_evt_write->data, p_evt_write->len);
     }

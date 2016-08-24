@@ -158,8 +158,9 @@ static void services_init(void)
 
     ble_sts_altitude_t alti_init =
     {
-        .integer = 0,
-        .decimal = 0
+        .current = 0,
+        .max = 0,
+        .vertical_velocity = 0
     };
 
     ble_sts_accel_t accel_init =
@@ -171,7 +172,7 @@ static void services_init(void)
 
     ble_sts_config_t config_init =
     {
-        .temperature_interval_ms = 500,
+        .temperature_interval_ms = TEMP_SAMPLE_PERIOD_MS,
         .altitude_interval_ms = ALTITUDE_SAMPLE_PERIOD_MS,
         .accel_interval_ms = ACCEL_SAMPLE_PERIOD_MS,
         .pressure_mode = STS_PRESSURE_MODE_ALTIMETER,
@@ -384,7 +385,31 @@ static void ble_sts_evt_handler(ble_sts_t        * p_sts,
                                 uint8_t          * p_data,
                                 uint16_t           length)
 {
-
+    switch (evt_type) {
+        case BLE_STS_EVT_NOTIF_ALTITUDE:
+            if (*p_data == 1)
+            {
+                ret_code_t err_code;
+                err_code = strato_altitude_enable();
+                APP_ERROR_CHECK(err_code);
+            }
+            else
+            {
+                ret_code_t err_code;
+                err_code = strato_altitude_disable();
+                APP_ERROR_CHECK(err_code);
+            }
+            break;
+        case BLE_STS_EVT_CONFIG_RECEIVED:
+            {
+                ret_code_t err_code;
+                ble_sts_config_t * p_config = (ble_sts_config_t *)p_data;
+                int16_t altitude_period = p_config->altitude_interval_ms;
+                err_code = strato_altitude_sample_period_set(altitude_period);
+                APP_ERROR_CHECK(err_code);
+            }
+            break;
+    }
 }
 
 static void ble_srs_evt_handler(ble_srs_t        * p_srs,
@@ -454,17 +479,14 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
     }
 }
 
-void altitude_data_evt_handler(float altitude)
+void altitude_data_evt_handler(strato_altitude_data_t * p_data)
 {
 
     ret_code_t err_code;
-
-    int32_t integer = (int32_t)(altitude);
-    float d_decimal = altitude - integer;
-    uint8_t decimal = (uint8_t)(d_decimal*100);
-    SEGGER_RTT_printf(0, "Altitude: %d.%d \r\n",integer,decimal);
-
-    //err_code = ble_sts_altitude_set(ble_sts_t * p_sts, ble_sts_altitude_t * p_data);
+    SEGGER_RTT_printf(0, "Altitude: %d \r\n",p_data->current);
+    SEGGER_RTT_printf(0, "Max Altitude: %d \r\n",p_data->max);
+    SEGGER_RTT_printf(0, "Vertical Velocity: %d \r\n",p_data->vertical_velocity);
+    err_code = ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
 }
 
 void accel_data_evt_handler(int16_t x, int16_t y, int16_t z)
@@ -482,14 +504,12 @@ static void strato_rocketry_system_init(void)
 
     ignition_init(&ignition_init_params);
     parachute_fins_init();
+}
 
+static void strato_telemetry_system_init(void)
+{
     strato_sensors_init(altitude_data_evt_handler, accel_data_evt_handler);
-
     strato_altitude_gnd_zero();
-    
-    nrf_delay_ms(600); // wait for gnd zero to complete before renabling altitude sampling
-
-    strato_altitude_enable(20);
 }
 
 void strato_ble_ctrl_sys_init(void)
@@ -501,6 +521,8 @@ void strato_ble_ctrl_sys_init(void)
     conn_params_init();
 
     strato_rocketry_system_init();
+    strato_telemetry_system_init();
+
     radio_power_amp_init();
 
     // Start execution.

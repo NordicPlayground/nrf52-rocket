@@ -51,8 +51,9 @@ typedef PACKED( struct
 
 typedef PACKED( struct
 {
-    int32_t  integer;
-    uint8_t  decimal;
+    int16_t current;
+    int16_t max;
+    int16_t vertical_velocity;
 }) ble_sts_altitude_t;
 
 typedef PACKED( struct

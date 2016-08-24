@@ -21,8 +21,17 @@ APP_TIMER_DEF(accel_timer_id);
 
 static strato_sensor_data_cb_t m_sensor_cb;
 
-static float m_ground_level = 0;
+static strato_altitude_data_t m_alti_data =
+{
+    .current = 0,
+    .max = 0,
+    .vertical_velocity = 0,
+};
+
+static int16_t m_ground_level = 0;
+
 static bool  m_ground_level_calib_flag = false;
+static uint16_t m_altitude_period = ALTITUDE_SAMPLE_PERIOD_MS; //ms
 
 static void press_evt_handler(drv_pressure_evt_t const * p_evt,
                               void *                     p_context)
@@ -43,13 +52,27 @@ static void press_evt_handler(drv_pressure_evt_t const * p_evt,
             {
                 if (m_ground_level_calib_flag == true)
                 {
-                    m_ground_level = drv_pressure_altitude_get();
+                    m_ground_level = drv_pressure_altitude_int_get();
                     m_ground_level_calib_flag = false;
 
                     err_code = strato_altitude_disable();
                     APP_ERROR_CHECK(err_code);
                 }
-                m_sensor_cb.altitude(drv_pressure_altitude_get() - m_ground_level);
+
+                else
+                {
+                    int16_t new_alti = drv_pressure_altitude_int_get() - m_ground_level;
+                    int16_t delta_alti = new_alti - m_alti_data.current;
+
+                    if (new_alti > m_alti_data.max)
+                    {
+                        m_alti_data.max = new_alti;
+                    }
+                    m_alti_data.current = new_alti;
+                    m_alti_data.vertical_velocity = delta_alti*1000/m_altitude_period;
+                }
+
+                m_sensor_cb.altitude(&m_alti_data);
             }
         }
         break;
@@ -103,7 +126,7 @@ ret_code_t strato_sensors_init(altitude_data_cb_t altitude_cb, acceleration_data
 
 }
 
-ret_code_t strato_altitude_sample_freq_set( uint16_t ms )
+ret_code_t strato_altitude_sample_period_set( uint16_t ms )
 {
     ret_code_t err_code;
     err_code = strato_altitude_disable();
@@ -111,45 +134,47 @@ ret_code_t strato_altitude_sample_freq_set( uint16_t ms )
 
     app_sched_execute();
 
-    return strato_altitude_enable(ms);
+    m_altitude_period = ms;
+
+    return strato_altitude_enable();
 }
 
-ret_code_t strato_altitude_enable( uint16_t ms )
+ret_code_t strato_altitude_enable( void )
 {
     ret_code_t err_code;
 
     err_code = drv_pressure_enable();
     APP_ERROR_CHECK(err_code);
 
-    if (ms <= 11)
+    if (m_altitude_period <= 11)
     {
         err_code = drv_pressure_oversampling_rate_set(0);
     }
-    else if (ms <= 19 && ms > 11 )
+    else if (m_altitude_period <= 19 && m_altitude_period > 11 )
     {
         err_code = drv_pressure_oversampling_rate_set(1);
     }
-    else if (ms <= 35 && ms > 19 )
+    else if (m_altitude_period <= 35 && m_altitude_period > 19 )
     {
         err_code = drv_pressure_oversampling_rate_set(2);
     }
-    else if (ms <= 67 && ms > 35 )
+    else if (m_altitude_period <= 67 && m_altitude_period > 35 )
     {
         err_code = drv_pressure_oversampling_rate_set(3);
     }
-    else if (ms <= 131 && ms > 35 )
+    else if (m_altitude_period <= 131 && m_altitude_period > 35 )
     {
         err_code = drv_pressure_oversampling_rate_set(4);
     }
-    else if (ms <= 259 && ms > 131 )
+    else if (m_altitude_period <= 259 && m_altitude_period > 131 )
     {
         err_code = drv_pressure_oversampling_rate_set(5);
     }
-    else if (ms <= 513 && ms > 259 )
+    else if (m_altitude_period <= 513 && m_altitude_period > 259 )
     {
         err_code = drv_pressure_oversampling_rate_set(6);
     }
-    else if (ms > 513)
+    else if (m_altitude_period > 513)
     {
         err_code = drv_pressure_oversampling_rate_set(7);
     }
@@ -161,7 +186,7 @@ ret_code_t strato_altitude_enable( uint16_t ms )
     APP_ERROR_CHECK(err_code);
 
     return app_timer_start(altitutde_timer_id,
-                       APP_TIMER_TICKS(ms, APP_TIMER_PRESCALER),
+                       APP_TIMER_TICKS(m_altitude_period, APP_TIMER_PRESCALER),
                        NULL);
 }
 

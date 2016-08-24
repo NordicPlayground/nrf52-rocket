@@ -445,17 +445,24 @@ float drv_pressure_altitude_get(void)
   // shift the value over 4 spots to the right and divide by 16 (since
   // there are 16 values in 4-bits).
 
-  // float tempcsb = (m_data.pressure.lsb >> 4) / 16.0f;
-  // float altitude = (float)( (m_data.pressure.msb << 8) | m_data.pressure.csb) + tempcsb;
+  float tempcsb = (m_data.pressure.lsb >> 4) / 16.0f;
+  float altitude = (float)( (m_data.pressure.msb << 8) | m_data.pressure.csb) + tempcsb;
 
-  float altitude = (float)
-                  ((((uint32_t)(m_data.pressure.msb) << 24)
-                  |
-                  ((uint32_t)(m_data.pressure.csb) << 16)
-                  |
-                  ((uint32_t)(m_data.pressure.lsb) << 8)))/65536;
+  //<METHOD 2>//
+  // float altitude = (float)
+  //                 ((((uint32_t)(m_data.pressure.msb) << 24)
+  //                 |
+  //                 ((uint32_t)(m_data.pressure.csb) << 16)
+  //                 |
+  //                 ((uint32_t)(m_data.pressure.lsb) << 8)))/65536;
 
   return altitude;
+}
+
+int16_t drv_pressure_altitude_int_get(void)
+{
+    int16_t altitude = (m_data.pressure.msb << 8) | (m_data.pressure.csb);
+    return altitude;
 }
 
 float drv_pressure_get(void)
