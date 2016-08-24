@@ -21,10 +21,14 @@
 #include "drv_servo.h"
 #include "SEGGER_RTT.h"
 #include "nrf_delay.h"
+#include "app_timer.h"
 
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
 static ble_srs_t                        m_srs;                                      /**< Instance of Strato Telemetry Service. */
+
+APP_TIMER_DEF(m_failsafe_parachute_timer_id);
+static uint16_t m_failsafe_parachute_timer_delay = 5000;
 
 //Forward declarations
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
@@ -422,6 +426,8 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
                                 uint8_t          * p_data,
                                 uint16_t           length)
 {
+
+        ret_code_t err_code;
         switch (evt_type) {
         case BLE_SRS_EVT_POWER:
             power_5v_enable((bool)(*p_data));
@@ -443,6 +449,10 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
                 case BLE_SRS_IGNITION_BOTH:
                     ignition_trigger_on(1);
                     ignition_trigger_on(2);
+
+                    err_code = app_timer_start(m_failsafe_parachute_timer_id, APP_TIMER_TICKS(m_failsafe_parachute_timer_delay, APP_TIMER_PRESCALER), NULL);
+                    APP_ERROR_CHECK(err_code);
+
                     break;
             }
             break;
@@ -492,11 +502,26 @@ void altitude_data_evt_handler(strato_altitude_data_t * p_data)
     SEGGER_RTT_printf(0, "Max Altitude: %d \r\n",p_data->max);
     SEGGER_RTT_printf(0, "Vertical Velocity: %d \r\n",p_data->vertical_velocity);
     err_code = ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
+    APP_ERROR_CHECK(err_code);
 }
 
 void accel_data_evt_handler(int16_t x, int16_t y, int16_t z)
 {
 
+}
+
+void parachute_timeout_handler( void * p_context)
+{
+    parachute_hatch_open();
+    fin_degrees_t fin_values =
+    {
+        .fin1 = 180,
+        .fin2 = 180,
+        .fin3 = 180,
+        .fin4 = 180,
+    };
+
+    fin_values_set(&fin_values);
 }
 
 static void strato_rocketry_system_init(void)
@@ -509,6 +534,11 @@ static void strato_rocketry_system_init(void)
 
     ignition_init(&ignition_init_params);
     parachute_fins_init();
+
+    ret_code_t err_code;
+    err_code = app_timer_create(&m_failsafe_parachute_timer_id, APP_TIMER_MODE_SINGLE_SHOT, parachute_timeout_handler);
+    
+    APP_ERROR_CHECK(err_code);
 }
 
 static void strato_telemetry_system_init(void)
@@ -528,6 +558,7 @@ void strato_ble_ctrl_sys_init(void)
     strato_rocketry_system_init();
     strato_telemetry_system_init();
 
+    sd_ble_gap_tx_power_set(4);
     radio_power_amp_init();
 
     // Start execution.

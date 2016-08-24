@@ -78,9 +78,8 @@ static void press_evt_handler(drv_pressure_evt_t const * p_evt,
                     }
 
                     m_alti_data.vertical_velocity = new_velo;
+                    m_sensor_cb.altitude(&m_alti_data);
                 }
-
-                m_sensor_cb.altitude(&m_alti_data);
             }
         }
         break;
@@ -136,20 +135,17 @@ ret_code_t strato_sensors_init(altitude_data_cb_t altitude_cb, acceleration_data
 
 ret_code_t strato_altitude_sample_period_set( uint16_t ms )
 {
-    ret_code_t err_code;
-    err_code = strato_altitude_disable();
-    RETURN_IF_ERROR(err_code);
-
-    app_sched_execute();
-
     m_altitude_period = ms;
-
     return strato_altitude_enable();
 }
 
 ret_code_t strato_altitude_enable( void )
 {
     ret_code_t err_code;
+
+    //Disable it first to make sure no double enables
+    err_code = strato_altitude_disable();
+    RETURN_IF_ERROR(err_code);
 
     err_code = drv_pressure_enable();
     APP_ERROR_CHECK(err_code);
