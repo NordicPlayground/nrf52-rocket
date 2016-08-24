@@ -26,6 +26,7 @@ static strato_altitude_data_t m_alti_data =
     .current = 0,
     .max = 0,
     .vertical_velocity = 0,
+    .max_vertical_velocity = 0
 };
 
 static int16_t m_ground_level = 0;
@@ -69,7 +70,14 @@ static void press_evt_handler(drv_pressure_evt_t const * p_evt,
                         m_alti_data.max = new_alti;
                     }
                     m_alti_data.current = new_alti;
-                    m_alti_data.vertical_velocity = delta_alti*1000/m_altitude_period;
+
+                    int16_t new_velo = delta_alti*1000/m_altitude_period;
+                    if (new_velo > m_alti_data.max_vertical_velocity)
+                    {
+                        m_alti_data.max_vertical_velocity = new_velo;
+                    }
+
+                    m_alti_data.vertical_velocity = new_velo;
                 }
 
                 m_sensor_cb.altitude(&m_alti_data);

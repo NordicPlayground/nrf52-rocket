@@ -3,14 +3,22 @@
 
 #include "drv_pressure.h"
 #include "app_error.h"
+#include <stdint.h>
 
+#ifdef __GNUC__
+    #ifdef PACKED
+        #undef PACKED
+    #endif
 
+    #define PACKED(TYPE) TYPE __attribute__ ((packed))
+#endif
 
 typedef struct
 {
     int16_t current;
     int16_t max;
     int16_t vertical_velocity;
+    int16_t max_vertical_velocity;
 } strato_altitude_data_t;
 
 typedef void (*altitude_data_cb_t)(strato_altitude_data_t * p_data);

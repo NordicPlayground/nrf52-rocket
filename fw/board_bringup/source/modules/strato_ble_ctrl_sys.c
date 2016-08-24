@@ -267,6 +267,11 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
             leds_set_rgb(leds_current_value_get() ^ 0x0000FF);
             err_code = ignition_cap_adc_sample_end();
             APP_ERROR_CHECK(err_code);
+
+
+            err_code = strato_altitude_disable();
+            APP_ERROR_CHECK(err_code);
+
             advertising_start();
             break;
 
