@@ -136,6 +136,7 @@ void power_5v_enable(bool state)
         SEGGER_RTT_printf(0, "Power Good");
         SEGGER_RTT_printf(0, "\r\n");
         leds_set_rgb(leds_current_value_get() | 0xFF0000);
+        nrf_gpio_pin_set(SERVO_ENABLE);
 
     }
     else

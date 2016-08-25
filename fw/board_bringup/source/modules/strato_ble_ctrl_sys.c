@@ -564,7 +564,7 @@ void strato_ble_ctrl_sys_init(void)
     strato_rocketry_system_init();
     strato_telemetry_system_init();
 
-    sd_ble_gap_tx_power_set(4);
+    sd_ble_gap_tx_power_set(3);
     radio_power_amp_init();
 
     // Start execution.
