@@ -39,7 +39,7 @@
 #define ACCEL_SAMPLE_PERIOD_MS                          (50)
 
 //PARACHUTE CONFIGS
-#define FAILSAFE_TIMER_DELAY_MS                         (5000)
-#define CLOSED_DEGREE                                   (90)
+#define FAILSAFE_TIMER_DELAY_MS                         (6000)
+#define CLOSED_DEGREE                                   (45)
 #define OPEN_DEGREE                                     (CLOSED_DEGREE+88)
 #endif /*STRATO_APP_CONFIG_H*/
