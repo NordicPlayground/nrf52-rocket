@@ -90,30 +90,6 @@ int main(void)
 
     // Enter main loop.
 
-
-
-//
-// //    drv_mpu9250_init_t motion_init;
-// //    motion_init.p_twi_instance = &m_twi_sensors;
-// //    motion_init.p_twi_cfg = &m_twi_config;
-// //    drv_mpu9250_init(&motion_init);
-// //    uint8_t who_am_i = 0;
-// //    drv_mpu9250_read(0x68,0x75,1,&who_am_i);
-// //    SEGGER_RTT_printf(0,"who am i: %d \r\n", who_am_i);
-//
-//     static const drv_humid_temp_init_t humid_temp_init =
-//     {
-//         .p_twi_instance = &m_twi_sensors,
-//         .evt_handler = humid_temp_evt_handler
-//     };
-//
-//     APP_TIMER_INIT(0,6,false);
-//     uint32_t err_code = drv_humid_temp_init(&humid_temp_init);
-//     APP_ERROR_CHECK(err_code);
-//
-//     err_code = drv_humid_temp_sample_begin( SENSOR_TYPE_HUMIDITY );
-//     APP_ERROR_CHECK(err_code);
-
     for (;;)
     {
        app_sched_execute();

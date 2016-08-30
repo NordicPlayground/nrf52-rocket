@@ -35,7 +35,7 @@
 
 //SENSOR DATA CONFIGS
 #define TEMP_SAMPLE_PERIOD_MS                           (50)
-#define ALTITUDE_SAMPLE_PERIOD_MS                       (520)
+#define ALTITUDE_SAMPLE_PERIOD_MS                       (50)
 #define ACCEL_SAMPLE_PERIOD_MS                          (50)
 
 //PARACHUTE CONFIGS
