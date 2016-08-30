@@ -128,6 +128,7 @@ ret_code_t strato_sensors_init(altitude_data_cb_t altitude_cb, acceleration_data
 
     // err_code = app_timer_create(&accel_timer_id, APP_TIMER_MODE_REPEATED, accel_timeout_handler);
     // RETURN_IF_ERROR(err_code);
+   
 
     return NRF_SUCCESS;
 

@@ -26,9 +26,16 @@
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 static ble_sts_t                        m_sts;                                      /**< Instance of Strato Telemetry Service. */
 static ble_srs_t                        m_srs;                                      /**< Instance of Strato Telemetry Service. */
+static bool                             m_is_connected;
 
-APP_TIMER_DEF(m_failsafe_parachute_timer_id);
-static uint16_t m_failsafe_parachute_timer_delay = FAILSAFE_TIMER_DELAY_MS;
+APP_TIMER_DEF(m_parachute_timer_id);
+APP_TIMER_DEF(m_stage_two_ignition_timer_id);
+
+#ifdef SINGLE_STAGE
+static uint16_t m_parachute_timer_delay = D9X2_PARACHUTE_TIMER_DELAY_MS;
+#elif defined DOUBLE_STAGE
+static uint16_t m_parachute_timer_delay = D9X2_C6X2_PARACHUTE_TIMER_DELAY_MS;
+#endif
 
 //Forward declarations
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
@@ -199,7 +206,7 @@ static void services_init(void)
     {
         .position_open = OPEN_DEGREE,
         .position_closed = CLOSED_DEGREE,
-        .failsafe_timer_delay = m_failsafe_parachute_timer_delay,
+        .parachute_timer_delay = m_parachute_timer_delay,
     };
 
     ble_srs_parachute_servo_t para_servo =
@@ -267,16 +274,14 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
     {
         case BLE_GAP_EVT_CONNECTED:
             leds_set_rgb(leds_current_value_get() | 0x0000FF);
+            m_is_connected = true;
             break;
 
         case BLE_GAP_EVT_DISCONNECTED:
             leds_set_rgb(leds_current_value_get() ^ 0x0000FF);
             err_code = ignition_cap_adc_sample_end();
             APP_ERROR_CHECK(err_code);
-
-
-            err_code = strato_altitude_disable();
-            APP_ERROR_CHECK(err_code);
+            m_is_connected = false;
 
             advertising_start();
             break;
@@ -440,21 +445,46 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
                     ignition_trigger_off(1);
                     ignition_trigger_off(2);
                     break;
-                //TODO: check for invalid state which means voltage too low,
-                //then throw some kind of error? or just let mobile side show the user
+
                 case BLE_SRS_IGNITION1_ON:
-                    ignition_trigger_on(1);
+                    if (ignition_cap_current_voltage_get() >= MINIMUM_IGNITION_VOLTAGE)
+                    {
+                        ignition_trigger_on(1);
+
+                        #ifdef DOUBLE_STAGE
+                        err_code = app_timer_start(m_parachute_timer_id, APP_TIMER_TICKS(m_parachute_timer_delay, APP_TIMER_PRESCALER), NULL);
+                        APP_ERROR_CHECK(err_code);
+
+                        err_code = app_timer_start(m_stage_two_ignition_timer_id, APP_TIMER_TICKS(SECOND_STAGE_IGNITION_DELAY_MS, APP_TIMER_PRESCALER), NULL);
+                        APP_ERROR_CHECK(err_code);
+                        #endif
+                    }
                     break;
                 case BLE_SRS_IGNITION2_ON:
-                    ignition_trigger_on(2);
+                    if (ignition_cap_current_voltage_get() >= MINIMUM_IGNITION_VOLTAGE)
+                    {
+                        ignition_trigger_on(2);
+
+                        //Transistor 2 should not be the first stage to be triggered by BLE, but let's start the parachute timer just in case anyway....
+                        #ifdef DOUBLE_STAGE
+                        err_code = app_timer_start(m_parachute_timer_id, APP_TIMER_TICKS(m_parachute_timer_delay, APP_TIMER_PRESCALER), NULL);
+                        APP_ERROR_CHECK(err_code);
+                        #endif
+                    }
+
                     break;
+
                 case BLE_SRS_IGNITION_BOTH:
+                    if (ignition_cap_current_voltage_get() >= MINIMUM_IGNITION_VOLTAGE)
+                    {
                     ignition_trigger_on(1);
                     ignition_trigger_on(2);
 
-                    err_code = app_timer_start(m_failsafe_parachute_timer_id, APP_TIMER_TICKS(m_failsafe_parachute_timer_delay, APP_TIMER_PRESCALER), NULL);
+                    #ifdef SINGLE_STAGE
+                    err_code = app_timer_start(m_parachute_timer_id, APP_TIMER_TICKS(m_parachute_timer_delay, APP_TIMER_PRESCALER), NULL);
                     APP_ERROR_CHECK(err_code);
-
+                    #endif
+                    }
                     break;
             }
             break;
@@ -485,7 +515,7 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
         {
             para_servo_config_t * p_config = (para_servo_config_t *)(p_data);
             parachute_end_values_set(p_config->position_open, p_config->position_closed);
-            m_failsafe_parachute_timer_delay = p_config->failsafe_timer_delay;
+            m_parachute_timer_delay = p_config->parachute_timer_delay;
             break;
         }
         case BLE_SRS_EVT_FIN_CTRL:
@@ -501,14 +531,15 @@ void altitude_data_evt_handler(strato_altitude_data_t * p_data)
 {
 
     ret_code_t err_code;
-    SEGGER_RTT_printf(0, "Altitude: %d \r\n",p_data->current);
-    SEGGER_RTT_printf(0, "Max Altitude: %d \r\n",p_data->max);
-    SEGGER_RTT_printf(0, "Vertical Velocity: %d \r\n",p_data->vertical_velocity);
+    // SEGGER_RTT_printf(0, "Altitude: %d \r\n",p_data->current);
+    // SEGGER_RTT_printf(0, "Max Altitude: %d \r\n",p_data->max);
+    // SEGGER_RTT_printf(0, "Vertical Velocity: %d \r\n",p_data->vertical_velocity);
+
     err_code = ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
-    if (err_code != NRF_ERROR_INVALID_STATE)
-    {
-        APP_ERROR_CHECK(err_code);
-    }
+    // if (err_code != NRF_ERROR_INVALID_STATE)
+    // {
+    //     APP_ERROR_CHECK(err_code);
+    // }
 }
 
 void accel_data_evt_handler(int16_t x, int16_t y, int16_t z)
@@ -530,6 +561,11 @@ void parachute_timeout_handler( void * p_context)
     fin_values_set(&fin_values);
 }
 
+void stg_two_ignition_timeout_handler( void * p_context)
+{
+    ignition_trigger_on(2);
+}
+
 static void strato_rocketry_system_init(void)
 {
     ignition_init_t ignition_init_params =
@@ -542,7 +578,9 @@ static void strato_rocketry_system_init(void)
     parachute_fins_init();
 
     ret_code_t err_code;
-    err_code = app_timer_create(&m_failsafe_parachute_timer_id, APP_TIMER_MODE_SINGLE_SHOT, parachute_timeout_handler);
+    err_code = app_timer_create(&m_parachute_timer_id, APP_TIMER_MODE_SINGLE_SHOT, parachute_timeout_handler);
+
+    err_code = app_timer_create(&m_stage_two_ignition_timer_id, APP_TIMER_MODE_SINGLE_SHOT, stg_two_ignition_timeout_handler);
 
     APP_ERROR_CHECK(err_code);
 }

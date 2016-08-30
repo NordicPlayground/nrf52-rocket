@@ -30,16 +30,26 @@
 #define MAX_CONN_PARAMS_UPDATE_COUNT                    3                                           /**< Number of attempts before giving up the connection parameter negotiation. */
 
 //IGNITION CONFIGS
-#define MINIMUM_IGNITION_VOLTAGE                        (4.8f)
-#define SUPERCAP_SAMPLE_PERIOD_MS                       (200)
+#define MINIMUM_IGNITION_VOLTAGE                        (3.0f)
+#define SUPERCAP_SAMPLE_PERIOD_MS                       (100)
 
 //SENSOR DATA CONFIGS
+#define ALTITUDE_SAMPLE_PERIOD_MS                       (150)
+
+//Currently not implemented
 #define TEMP_SAMPLE_PERIOD_MS                           (50)
-#define ALTITUDE_SAMPLE_PERIOD_MS                       (50)
 #define ACCEL_SAMPLE_PERIOD_MS                          (50)
 
+//MOTOR CONFIGS
+//#define SINGLE_STAGE
+#define DOUBLE_STAGE
+#define SECOND_STAGE_IGNITION_DELAY_MS                  (2500)
+
 //PARACHUTE CONFIGS
-#define FAILSAFE_TIMER_DELAY_MS                         (6000)
+#define D9X2_PARACHUTE_TIMER_DELAY_MS                   (6000)    //Single Stage, one D9 motor on each ignition transistor
+#define D9X2_C6X2_PARACHUTE_TIMER_DELAY_MS              (9000)   //Double Stage, 2 D9 motors on one ignition transistor, and 2 C6 Motors on the other
+
+
 #define CLOSED_DEGREE                                   (45)
 #define OPEN_DEGREE                                     (CLOSED_DEGREE+88)
 #endif /*STRATO_APP_CONFIG_H*/

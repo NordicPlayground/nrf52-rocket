@@ -17,6 +17,8 @@ ret_code_t ignition_cap_adc_sample_begin(void);
 
 ret_code_t ignition_cap_adc_sample_end(void);
 
+float ignition_cap_current_voltage_get(void);
+
 void power_5v_enable(bool state);
 
 void ignition_dump_cap(bool state);

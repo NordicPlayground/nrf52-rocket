@@ -160,6 +160,11 @@ ret_code_t ignition_cap_adc_sample_end(void)
     return nrf_drv_ppi_channel_disable(m_ppi_channel);
 }
 
+float ignition_cap_current_voltage_get(void)
+{
+    return m_current_voltage;
+}
+
 
 void ignition_dump_cap(bool state)
 {
@@ -175,22 +180,15 @@ void ignition_dump_cap(bool state)
 
 ret_code_t ignition_trigger_on(uint8_t channel)
 {
-    if (m_current_voltage < MINIMUM_IGNITION_VOLTAGE)
+    if (channel == 1)
     {
-        return NRF_ERROR_INVALID_STATE;
+        nrf_gpio_pin_set(IGNITION_CH1);
     }
-    else
+    else if (channel == 2)
     {
-        if (channel == 1)
-        {
-            nrf_gpio_pin_set(IGNITION_CH1);
-        }
-        else if (channel == 2)
-        {
-            nrf_gpio_pin_set(IGNITION_CH2);
-        }
-        return NRF_SUCCESS;
+        nrf_gpio_pin_set(IGNITION_CH2);
     }
+    return NRF_SUCCESS;
 }
 
 void ignition_trigger_off(uint8_t channel)
