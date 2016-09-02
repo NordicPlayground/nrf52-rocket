@@ -1,20 +1,22 @@
-# nRF52 Strato™ (working title)
+# nRF52 Rocket
 
 #### Table of Contents
 * [Introduction](#introduction)
 * [Hardware](#hardware)
 * [Firmware](#firmware)
-* [Software](#software)
+
+This repository contains the firmware and hardware files for the first launched BLE rocket prototype.
 
 ## Introduction
 
 As the BLE standard (namely Bluetooth 5.0) enables higher TX power and thusly communication range, it becomes more and more viable to use Bluetooth LE for mid-range RC toys in the proximity of around 100 - 500 m. BLE provides the benefits of high interoperability amongst different manufacturers due to rigorous standardization compared to other frequencies, yet less power consuming than Wifi.
 
-The model rocketry industry drives a very popular hobby, especially in the U.S., that inspires youth and adults to engage in science and engineering. Yet, through some web research (quick googling) it appears that there is a gap between really simple beginner rockets with less than 200 m of flight range which are completely made out of cardboard and wood with no electronic flight telemetry or parachute deployment, and advanced heavy duty rockets with expensive electronics that can go up to tens or hundreds of kilometers.
+The model rocketry industry drives a very popular hobby, especially in the U.S., that inspires youth and adults to engage in science and engineering. Yet, through some web research it appears that there is a gap between really simple beginner rockets with less than 200 m of flight range which are completely made out of cardboard and wood with no electronic flight telemetry or electronic parachute deployment; and the advanced heavy duty rockets with expensive electronics that can go up to kilometers.
 
 A BLE enabled model rocket can serve the hobbyists who want to be a little more serious with their rocket flying and track their rockets performance in real time and have smart parachute deployment, but do not have the funds or the skills to buy/build a super hardcore rocket that costs thousands of dollars.
 
-(Also, as Nordic develops further on LTE technology, it will further extend the range to enable higher flying rockets for a model rocket reference design).
+
+BOTTOM SECTIONS INCOMPLETE STILL...
 
 
 ## Hardware
