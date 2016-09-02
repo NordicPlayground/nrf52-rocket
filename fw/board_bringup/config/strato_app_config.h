@@ -35,6 +35,7 @@
 
 //SENSOR DATA CONFIGS
 #define ALTITUDE_SAMPLE_PERIOD_MS                       (150)
+#define ALTITUDE_LOG_SIZE                               (400)
 
 //Currently not implemented
 #define TEMP_SAMPLE_PERIOD_MS                           (50)

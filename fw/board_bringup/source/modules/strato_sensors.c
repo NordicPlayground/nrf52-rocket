@@ -16,7 +16,7 @@
         }
 
 APP_TIMER_DEF(altitutde_timer_id);
-APP_TIMER_DEF(accel_timer_id);
+//APP_TIMER_DEF(accel_timer_id);
 
 
 static strato_sensor_data_cb_t m_sensor_cb;
@@ -33,6 +33,9 @@ static int16_t m_ground_level = 0;
 
 static bool  m_ground_level_calib_flag = false;
 static uint16_t m_altitude_period = ALTITUDE_SAMPLE_PERIOD_MS; //ms
+
+static int16_t m_altitude_log[ALTITUDE_LOG_SIZE] = {0};
+static uint8_t m_altitude_log_counter = 0;
 
 static void press_evt_handler(drv_pressure_evt_t const * p_evt,
                               void *                     p_context)
@@ -64,6 +67,13 @@ static void press_evt_handler(drv_pressure_evt_t const * p_evt,
                 {
                     int16_t new_alti = drv_pressure_altitude_int_get() - m_ground_level;
                     int16_t delta_alti = new_alti - m_alti_data.current;
+
+                    //Write a log to ram incase of BLE link loss
+                    if (m_altitude_log_counter <= ALTITUDE_LOG_SIZE)
+                    {
+                        m_altitude_log[m_altitude_log_counter] = new_alti;
+                        m_altitude_log_counter++;
+                    }
 
                     if (new_alti > m_alti_data.max)
                     {
@@ -98,6 +108,18 @@ static void press_evt_handler(drv_pressure_evt_t const * p_evt,
 // }
 
 
+int16_t strato_altitude_log_get(uint8_t index)
+{
+    if (index <= ALTITUDE_LOG_SIZE)
+    {
+        return m_altitude_log[index];
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 static void altitude_timeout_handler(void * p_context)
 {
    uint32_t err_code;
@@ -128,7 +150,7 @@ ret_code_t strato_sensors_init(altitude_data_cb_t altitude_cb, acceleration_data
 
     // err_code = app_timer_create(&accel_timer_id, APP_TIMER_MODE_REPEATED, accel_timeout_handler);
     // RETURN_IF_ERROR(err_code);
-   
+
 
     return NRF_SUCCESS;
 

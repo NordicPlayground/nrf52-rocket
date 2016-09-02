@@ -30,12 +30,15 @@ static bool                             m_is_connected;
 
 APP_TIMER_DEF(m_parachute_timer_id);
 APP_TIMER_DEF(m_stage_two_ignition_timer_id);
+APP_TIMER_DEF(m_altitude_log_timer_id);
 
 #ifdef SINGLE_STAGE
 static uint16_t m_parachute_timer_delay = D9X2_PARACHUTE_TIMER_DELAY_MS;
 #elif defined DOUBLE_STAGE
 static uint16_t m_parachute_timer_delay = D9X2_C6X2_PARACHUTE_TIMER_DELAY_MS;
 #endif
+
+static uint8_t m_log_timer_index = 0;
 
 //Forward declarations
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
@@ -48,6 +51,7 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
                                 uint8_t          * p_data,
                                 uint16_t           length);
 
+static void strato_altitude_log_stream_stop(void);
 /**@brief Function for handling a Connection Parameters error.
  *
  * @param[in] nrf_error  Error code containing information about what went wrong.
@@ -282,7 +286,7 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
             err_code = ignition_cap_adc_sample_end();
             APP_ERROR_CHECK(err_code);
             m_is_connected = false;
-
+            strato_altitude_log_stream_stop();
             advertising_start();
             break;
 
@@ -396,6 +400,32 @@ static void supercap_voltage_evt_handler( double result )
     APP_ERROR_CHECK(err_code);
 }
 
+static ret_code_t strato_altitude_log_stream_start(void)
+{
+    return app_timer_start(m_altitude_log_timer_id, APP_TIMER_TICKS(50, APP_TIMER_PRESCALER), NULL);
+}
+
+static void strato_altitude_log_stream_stop(void)
+{
+    app_timer_stop(m_altitude_log_timer_id);
+    m_log_timer_index = 0;
+}
+
+void altitude_log_timeout_handler( void * p_context)
+{
+    if (m_log_timer_index <= ALTITUDE_LOG_SIZE)
+    {
+        int16_t log_data = (strato_altitude_log_get(m_log_timer_index));
+        ble_sts_altitude_log_set(&m_sts, &log_data);
+        m_log_timer_index++;
+    }
+    else
+    {
+        strato_altitude_log_stream_stop();
+    }
+
+}
+
 static void ble_sts_evt_handler(ble_sts_t        * p_sts,
                                 ble_sts_evt_type_t evt_type,
                                 uint8_t          * p_data,
@@ -414,6 +444,18 @@ static void ble_sts_evt_handler(ble_sts_t        * p_sts,
                 ret_code_t err_code;
                 err_code = strato_altitude_disable();
                 APP_ERROR_CHECK(err_code);
+            }
+            break;
+        case BLE_STS_EVT_NOTIF_ALTITUDE_LOG:
+            if (*p_data == 1)
+            {
+                ret_code_t err_code;
+                err_code = strato_altitude_log_stream_start();
+                APP_ERROR_CHECK(err_code);
+            }
+            else
+            {
+                strato_altitude_log_stream_stop();
             }
             break;
         case BLE_STS_EVT_CONFIG_RECEIVED:
@@ -530,12 +572,13 @@ static void ble_srs_evt_handler(ble_srs_t        * p_srs,
 void altitude_data_evt_handler(strato_altitude_data_t * p_data)
 {
 
-    ret_code_t err_code;
+    // ret_code_t err_code;
     // SEGGER_RTT_printf(0, "Altitude: %d \r\n",p_data->current);
     // SEGGER_RTT_printf(0, "Max Altitude: %d \r\n",p_data->max);
     // SEGGER_RTT_printf(0, "Vertical Velocity: %d \r\n",p_data->vertical_velocity);
 
-    err_code = ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
+    ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
+    //err_code = ble_sts_altitude_set(&m_sts,(ble_sts_altitude_t *)p_data);
     // if (err_code != NRF_ERROR_INVALID_STATE)
     // {
     //     APP_ERROR_CHECK(err_code);
@@ -589,6 +632,10 @@ static void strato_telemetry_system_init(void)
 {
     strato_sensors_init(altitude_data_evt_handler, accel_data_evt_handler);
     strato_altitude_gnd_zero();
+
+    ret_code_t err_code;
+    err_code = app_timer_create(&m_altitude_log_timer_id, APP_TIMER_MODE_REPEATED, altitude_log_timeout_handler);
+    APP_ERROR_CHECK(err_code);
 }
 
 void strato_ble_ctrl_sys_init(void)

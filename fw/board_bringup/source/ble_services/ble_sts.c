@@ -18,6 +18,8 @@
 #define BLE_UUID_STS_ACCEL_CHAR       0x0003                      /**< The UUID of the accel Characteristic. */
 #define BLE_UUID_STS_TEMP_CHAR        0x0004                      /**< The UUID of the temperature Characteristic. */
 #define BLE_UUID_STS_CONFIG_CHAR      0x0005                      /**< The UUID of the config Characteristic. */
+#define BLE_UUID_STS_ALTITUDE_LOG_CHAR    0x0006                     /**< The UUID of the altitude log Characteristic. */
+
 
 // 1beexxxx-5806-11e6-8b77-86f30ca893d3
 #define STS_BASE_UUID                  {{0xd3, 0x93, 0xa8, 0x0c, 0xf3, 0x86, 0x77, 0x8b, 0xe6, 0x11, 0x06, 0x58, 0x00, 0x00, 0xee, 0x1b}} /**< Used vendor specific UUID. */
@@ -88,6 +90,16 @@ static void on_write(ble_sts_t * p_sts, ble_evt_t * p_ble_evt)
             p_sts->evt_handler(p_sts, BLE_STS_EVT_NOTIF_ALTITUDE, p_evt_write->data, p_evt_write->len);
         }
     }
+
+    else if ( (p_evt_write->handle == p_sts->altitude_log_handles.cccd_handle) &&
+         (p_evt_write->len == 2) )
+    {
+        if (p_sts->evt_handler != NULL)
+        {
+            p_sts->evt_handler(p_sts, BLE_STS_EVT_NOTIF_ALTITUDE_LOG, p_evt_write->data, p_evt_write->len);
+        }
+    }
+
     else if ( (p_evt_write->handle == p_sts->accel_handles.cccd_handle) &&
          (p_evt_write->len == 2) )
     {
@@ -237,6 +249,70 @@ static uint32_t altitude_char_add(ble_sts_t * p_sts, const ble_sts_init_t * p_st
                                            &char_md,
                                            &attr_char_value,
                                            &p_sts->altitude_handles);
+    /**@snippet [Adding proprietary characteristic to S132 SoftDevice] */
+}
+
+/**@brief Function for adding altitude log characteristic.
+ *
+ * @param[in] p_sts       Strato Telemetry Service structure.
+ * @param[in] p_sts_init  Information needed to initialize the service.
+ *
+ * @return NRF_SUCCESS on success, otherwise an error code.
+ */
+static uint32_t altitude_log_char_add(ble_sts_t * p_sts, const ble_sts_init_t * p_sts_init)
+{
+    /**@snippet [Adding proprietary characteristic to S132 SoftDevice] */
+    ble_gatts_char_md_t char_md;
+    ble_gatts_attr_md_t cccd_md;
+    ble_gatts_attr_t    attr_char_value;
+    ble_uuid_t          ble_uuid;
+    ble_gatts_attr_md_t attr_md;
+
+    memset(&cccd_md, 0, sizeof(cccd_md));
+
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.read_perm);
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.write_perm);
+
+    cccd_md.vloc = BLE_GATTS_VLOC_STACK;
+
+    memset(&char_md, 0, sizeof(char_md));
+
+    char_md.char_props.read   = 1;
+    char_md.char_props.notify = 1;
+    char_md.p_char_user_desc  = NULL;
+    char_md.p_char_pf         = NULL;
+    char_md.p_user_desc_md    = NULL;
+    char_md.p_cccd_md         = &cccd_md;
+    char_md.p_sccd_md         = NULL;
+
+    ble_uuid.type = p_sts->uuid_type;
+    ble_uuid.uuid = BLE_UUID_STS_ALTITUDE_LOG_CHAR;
+
+    memset(&attr_md, 0, sizeof(attr_md));
+
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
+
+    attr_md.vloc    = BLE_GATTS_VLOC_STACK;
+    attr_md.rd_auth = 0;
+    attr_md.wr_auth = 0;
+    attr_md.vlen    = 0;
+
+    memset(&attr_char_value, 0, sizeof(attr_char_value));
+
+    int16_t init_log = 0;
+
+    attr_char_value.p_uuid    = &ble_uuid;
+    attr_char_value.p_attr_md = &attr_md;
+    attr_char_value.init_len  = sizeof(int16_t);
+    attr_char_value.init_offs = 0;
+    attr_char_value.p_value   = (uint8_t *)(&init_log);
+    attr_char_value.max_len   = sizeof(int16_t);
+
+    return sd_ble_gatts_characteristic_add(p_sts->service_handle,
+                                           &char_md,
+                                           &attr_char_value,
+                                           &p_sts->altitude_log_handles);
     /**@snippet [Adding proprietary characteristic to S132 SoftDevice] */
 }
 
@@ -429,6 +505,9 @@ uint32_t ble_sts_init(ble_sts_t * p_sts, const ble_sts_init_t * p_sts_init)
     err_code = config_char_add(p_sts, p_sts_init);
     VERIFY_SUCCESS(err_code);
 
+    err_code = altitude_log_char_add(p_sts, p_sts_init);
+    VERIFY_SUCCESS(err_code);
+
     return NRF_SUCCESS;
 }
 
@@ -480,6 +559,33 @@ uint32_t ble_sts_altitude_set(ble_sts_t * p_sts, ble_sts_altitude_t * p_data)
 
     hvx_params.handle = p_sts->altitude_handles.value_handle;
     hvx_params.p_data = (uint8_t *)p_data;
+    hvx_params.p_len  = &length;
+    hvx_params.type   = BLE_GATT_HVX_NOTIFICATION;
+
+    return sd_ble_gatts_hvx(p_sts->conn_handle, &hvx_params);
+}
+
+uint32_t ble_sts_altitude_log_set(ble_sts_t * p_sts, int16_t * p_altitude)
+{
+    ble_gatts_hvx_params_t hvx_params;
+    uint16_t               length = sizeof(int16_t);
+
+    VERIFY_PARAM_NOT_NULL(p_sts);
+
+    if ((p_sts->conn_handle == BLE_CONN_HANDLE_INVALID))
+    {
+        return NRF_ERROR_INVALID_STATE;
+    }
+
+    if (length > BLE_STS_MAX_DATA_LEN)
+    {
+        return NRF_ERROR_INVALID_PARAM;
+    }
+
+    memset(&hvx_params, 0, sizeof(hvx_params));
+
+    hvx_params.handle = p_sts->altitude_log_handles.value_handle;
+    hvx_params.p_data = (uint8_t *)p_altitude;
     hvx_params.p_len  = &length;
     hvx_params.type   = BLE_GATT_HVX_NOTIFICATION;
 

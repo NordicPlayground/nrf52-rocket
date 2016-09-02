@@ -84,6 +84,7 @@ typedef enum
 {
     BLE_STS_EVT_NOTIF_TEMPERATURE,
     BLE_STS_EVT_NOTIF_ALTITUDE,
+    BLE_STS_EVT_NOTIF_ALTITUDE_LOG,
     BLE_STS_EVT_NOTIF_ACCEL,
     BLE_STS_EVT_CONFIG_RECEIVED
 }ble_sts_evt_type_t;
@@ -122,6 +123,7 @@ struct ble_sts_s
     uint16_t                 service_handle;               /**< Handle of Strato Telemetry Service (as provided by the S110 SoftDevice). */
     ble_gatts_char_handles_t temperature_handles;          /**< Handles related to the temperature characteristic (as provided by the S132 SoftDevice). */
     ble_gatts_char_handles_t altitude_handles;             /**< Handles related to the altitude characteristic (as provided by the S132 SoftDevice). */
+    ble_gatts_char_handles_t altitude_log_handles;             /**< Handles related to the altitude characteristic (as provided by the S132 SoftDevice). */
     ble_gatts_char_handles_t accel_handles;                /**< Handles related to the accel characteristic (as provided by the S132 SoftDevice). */
     ble_gatts_char_handles_t config_handles;               /**< Handles related to the config characteristic (as provided by the S132 SoftDevice). */
     bool                     is_temperature_notif_enabled; /**< Variable to indicate if the peer has enabled notification of the characteristic.*/
@@ -179,6 +181,9 @@ uint32_t ble_sts_temperature_set(ble_sts_t * p_sts, ble_sts_temperature_t * p_da
  * @retval NRF_SUCCESS If the string was sent successfully. Otherwise, an error code is returned.
  */
 uint32_t ble_sts_altitude_set(ble_sts_t * p_sts, ble_sts_altitude_t * p_data);
+
+
+uint32_t ble_sts_altitude_log_set(ble_sts_t * p_sts, int16_t * p_altitude);
 
 /**@brief Function for setting the acceleration.
  *

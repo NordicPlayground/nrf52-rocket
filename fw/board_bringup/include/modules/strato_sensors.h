@@ -33,6 +33,8 @@ typedef struct
 
 ret_code_t strato_sensors_init(altitude_data_cb_t altitude_cb, acceleration_data_cb_t accel_cb);
 
+int16_t strato_altitude_log_get(uint8_t index);
+
 ret_code_t strato_altitude_sample_period_set( uint16_t ms );
 
 ret_code_t strato_altitude_enable( void );
