@@ -32,8 +32,8 @@ Servo Motors | Tower Pro SG90 | Parachute release mechanism
 3.3V LDO | AP7333-33SAG-7 | nRF52/sensor power
 USB 4.2V LiPo Charger | AAT3681A | Charging
 
-![Alt text](/hw/hw_screenshots/PCB_3d_view.png?raw=true "3D View")
-![Alt text](/hw/hw_screenshots/PCB_stacked_view.png?raw=true "Stacked View")
+![Alt text](hw/hw_screenshots/PCB_3d_view.png?raw=true "3D View")
+![Alt text](hw/hw_screenshots/PCB_stacked_view.png?raw=true "Stacked View")
 
 #### Mechanical
 Component Type | Part Number | Function
@@ -44,7 +44,7 @@ Parachute | Klima | Rocket recovery
 Nose Cone | 3D Printed | Body construction
 Engine Mount + Fins | 3D Printed | Body construction
 
-![Alt text](/hw/hw_screenshots/Rocket_assembly.png?raw=true "Rocket CAD Assembly")
+![Alt text](hw/hw_screenshots/Rocket_assembly.png?raw=true "Rocket CAD Assembly")
 
 [OnShape 3D CAD Files and Assemblies](https://cad.onshape.com/documents/a4d45ed022dbb8a2dc83f180/w/58fca6c234a131fe917f28c8/e/50b00e1e04cebf07ed807ff0 "Rocket CAD Files")
 
