@@ -1,5 +1,7 @@
 # nRF52 Rocket
 
+# Check out the official [Launch Video](https://www.youtube.com/watch?v=nOK4TQ3TGd8) from Nordic Semiconductor!
+
 #### Table of Contents
 * [Introduction](#introduction)
 * [Hardware](#hardware)
